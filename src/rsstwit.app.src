@@ -1,0 +1,18 @@
+{application, rsstwit,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {modules, [
+       rsstwit_app,
+       rsstwit_sup,
+       readrss_server
+       ]},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  inets
+                 ]},
+  {mod, { rsstwit_app, []}},
+  {env, []}
+ ]}.
