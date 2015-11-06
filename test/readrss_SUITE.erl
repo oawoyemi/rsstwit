@@ -7,10 +7,6 @@
 all() -> [test1].
 
 init_per_suite(Config) ->
-    inets:start(),
     Config.
 
-readme() -> {ok, {_Status, _Headers, Body}}  = httpc:request(get, {"http://stackoverflow.com/feeds/tag?tagnames=erlang&sort=newest", []}, [], []),
-    Body.
-
-test1(_Config) -> ct:pal(" ~s ", [readme()]).
+test1(_Config) ->

@@ -1,0 +1,492 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:re="http://purl.org/atompub/rank/1.0">
+    <title type="text">Active questions tagged erlang - Stack Overflow</title>
+    <link rel="self" href="http://stackoverflow.com/feeds/tag?tagnames=erlang" type="application/atom+xml"/>
+    <link rel="alternate" href="http://stackoverflow.com/questions/tagged/?tagnames=erlang&amp;sort=active" type="text/html"/>
+    <subtitle>most recent 30 from stackoverflow.com</subtitle>
+    <updated>2015-11-02T21:20:16Z</updated>
+    <id>http://stackoverflow.com/feeds/tag?tagnames=erlang</id>
+    <creativeCommons:license>http://www.creativecommons.org/licenses/by-sa/3.0/rdf</creativeCommons:license>
+    <entry>
+        <id>http://stackoverflow.com/q/33485205</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to build and use epgsql (erlang)</title>
+        <category scheme="http://stackoverflow.com/tags" term="postgresql"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="rebar"/>
+        <author>
+            <name>user3360140</name>
+            <uri>http://stackoverflow.com/users/3360140</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33485205/how-to-build-and-use-epgsql-erlang"/>
+        <published>2015-11-02T19:19:25Z</published>
+        <updated>2015-11-02T20:20:17Z</updated>
+        <summary type="html">                        &lt;p>My erlnag program directory structure is like the below:&lt;/p>&lt;pre>&lt;code>src   pgtest.erllib   epgsql   rebar&lt;/code>&lt;/pre>&lt;p>I downloaded the epgsql library from &lt;a href="https://github.com/epgsql/epgsql" rel="nofollow">https://github.com/epgsql/epgsql&lt;/a>then tried to build it with make which gave me the below error:&lt;/p>&lt;pre>&lt;code>make: rebar: Command not foundmake: *** [compile] Error 127&lt;/code>&lt;/pre>&lt;p>So then I downloaded rebar from &lt;a href="https://github.com/basho/rebar" rel="nofollow">https://github.com/basho/rebar&lt;/a> and build it. It was build successfully and gave me the message.&lt;/p>&lt;blockquote>  &lt;p>Congratulations! You now have a self-contained script called "rebar"  in      your current working directory. Place this script anywhere in your path      and you can use rebar to build OTP-compliant apps.&lt;/p>&lt;/blockquote>&lt;p>So as per my understanding I copied the rebar script from rebar directory to my epgsql directory and then tried to make again. However, I got the same error. I know I am doing it wrong, but not sure what exactly to do?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/22517250</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">How To Convert An Elixir Binary To A String?</title>
+        <category scheme="http://stackoverflow.com/tags" term="unicode"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="odbc"/>
+        <category scheme="http://stackoverflow.com/tags" term="elixir"/>
+        <author>
+            <name>Onorio Catenacci</name>
+            <uri>http://stackoverflow.com/users/2820</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/22517250/how-to-convert-an-elixir-binary-to-a-string"/>
+        <published>2014-03-19T20:21:14Z</published>
+        <updated>2015-11-02T20:11:12Z</updated>
+        <summary type="html">                        &lt;p>So I'm trying to convert a binary to a string.  This code:&lt;/p>&lt;pre>&lt;code>t = [{&amp;lt;&amp;lt;71,0,69,0,84,0&amp;gt;&amp;gt;}]String.from_char_list(t)&lt;/code>&lt;/pre>&lt;p>But I'm getting this when I try this conversion:&lt;/p>&lt;pre>&lt;code>** (ArgumentError) argument error    (stdlib) :unicode.characters_to_binary([{&amp;lt;&amp;lt;70, 0, 73, 0, 78, 0&amp;gt;&amp;gt;}])    (elixir) lib/string.ex:1161: String.from_char_list/1&lt;/code>&lt;/pre>&lt;p>I'm assuming the &amp;lt;&amp;lt;70, 0, etc. is likely a list of graphemes (it's the return from an API call and the API is not quite documented) but do I need to specify the encoding somehow?&lt;/p>&lt;p>I know I'm likely missing something obvious (maybe that's not the right function to use?) but I can't seem to figure out what to do here. &lt;/p>&lt;hr>&lt;p>EDIT:&lt;/p>&lt;p>For what it's worth, the binary above is the return value of an Erlang ODBC call.  After a little more digging I found that the binary in question is actually a "Unicode binary encoded as UTF16 little endian" (see here: &lt;a href="http://www.erlang.org/doc/apps/odbc/odbc.pdf" rel="nofollow">http://www.erlang.org/doc/apps/odbc/odbc.pdf&lt;/a> pg. 9 re: SQL_WVARCHAR)  Doesn't really change the issue but it does add some context.&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33478574</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">How to control the function order in edoc file?</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="edoc"/>
+        <author>
+            <name>BlackMamba</name>
+            <uri>http://stackoverflow.com/users/2223579</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33478574/how-to-control-the-function-order-in-edoc-file"/>
+        <published>2015-11-02T13:19:45Z</published>
+        <updated>2015-11-02T16:46:30Z</updated>
+        <summary type="html">                        &lt;p>i want to generate the edoc file for one erlang module, here is my code &lt;a href="http://ideone.com/TFktht" rel="nofollow">http://ideone.com/TFktht&lt;/a>,&lt;/p>&lt;p>I want oder the export api interface, but i can not success.&lt;/p>&lt;pre>&lt;code>generate_log_statistics/4   Analyse the log files and draw graph.prepare_sipp_cmd/3  Shows SIPp online help documentation of what config parameters there are.prepare_systeminfo_filenames/1  Prepare the log files according which blades you want to monitor.run_scenario/6  Run the SIPp scenario.start_collect_system_infos/1    Start collecting the logs.stop_collect_system_infos/1 Stop collecting the logs.&lt;/code>&lt;/pre>&lt;p>These exported api in edoc are not odered.I want:&lt;/p>&lt;pre>&lt;code>prepare_sipp_cmd/3prepare_systeminfo_filenames/1start_collect_system_infos/1 run_scenario/6start_collect_system_infos/1 generate_log_statistics/4&lt;/code>&lt;/pre>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33474242</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Create simple erlang in-memory database [on hold]</title>
+        <category scheme="http://stackoverflow.com/tags" term="database"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="in-memory-database"/>
+        <category scheme="http://stackoverflow.com/tags" term="gen-server"/>
+        <author>
+            <name>Ezis</name>
+            <uri>http://stackoverflow.com/users/4442032</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33474242/create-simple-erlang-in-memory-database"/>
+        <published>2015-11-02T09:19:17Z</published>
+        <updated>2015-11-02T09:19:17Z</updated>
+        <summary type="html">                        &lt;p>This is about making a simple in memory database. I want to make it with gen_server to train my skills, how would i approach a task like this? What would be the best design?&lt;/p>&lt;p>• start() for starting a new DB server. Returns {ok, Pid}.&lt;/p>&lt;p>• query(Pid, P) for applying the function P to each row in the database. Returns{ok, Rows} where Rows is a list of all the rows for which P returned true; or returns {error, Row} if P raised an exception for Row. As query operations are read-only it is possible to eficiently run several concurrently.In particular, you should discuss advantages and limitations of your approach.&lt;/p>&lt;p>• upsert(Aid, Id, F) for inserting or updating the row with identifer Id. If there is no row with identifer Id in the database, then F is called with the argument{new, Id}; otherwise F is called with the argument {existing, {Id, Data}}, where Data is the row data for Id. If F returns {modify, NewData}, then the row for Id is set to NewData; otherwise if F returns ignore then the database is not updated. Returns the return value of the F call, and if F raises a normal (throw) exception,then this function should raise the same exception.&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33436480</id>
+        <re:rank scheme="http://stackoverflow.com">6</re:rank>
+        <title type="text">Testing Erlang function performance with timer</title>
+        <category scheme="http://stackoverflow.com/tags" term="performance"/>
+        <category scheme="http://stackoverflow.com/tags" term="timer"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <author>
+            <name>thehowler</name>
+            <uri>http://stackoverflow.com/users/11937</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33436480/testing-erlang-function-performance-with-timer"/>
+        <published>2015-10-30T12:53:29Z</published>
+        <updated>2015-11-02T09:11:47Z</updated>
+        <summary type="html">                        &lt;p>I'm testing the performance of a function in a tight loop (say 5000 iterations) using &lt;code>timer:tc/3&lt;/code>:&lt;/p>&lt;pre>&lt;code>{Duration_us, _Result} = timer:tc(M, F, [A])&lt;/code>&lt;/pre>&lt;p>This returns both the duration (in microseconds) and the result of the function. For argument's sake the duration is N microseconds.&lt;/p>&lt;p>I then perform a simple average calculation on the results of the iterations.&lt;/p>&lt;p>If I place a &lt;code>timer:sleep(1)&lt;/code> function call &lt;strong>before&lt;/strong> the &lt;code>timer:tc/3&lt;/code> call, the average duration for all the iterations is always > the average without the sleep:&lt;/p>&lt;pre>&lt;code>timer:sleep(1),timer:tc(M, F, [A]).&lt;/code>&lt;/pre>&lt;p>This doesn't make much sense to me as the &lt;code>timer:tc/3&lt;/code> function should be atomic and not care about anything that happened before it.&lt;/p>&lt;p>Can anyone explain this strange functionality? Is it somehow related to scheduling and reductions?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33436700</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">RabbitMq: Setup TLS with Intermediate Wildcard Certifcate</title>
+        <category scheme="http://stackoverflow.com/tags" term="ssl"/>
+        <category scheme="http://stackoverflow.com/tags" term="openssl"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="rabbitmq"/>
+        <category scheme="http://stackoverflow.com/tags" term="tls1.2"/>
+        <author>
+            <name>mblaettermann</name>
+            <uri>http://stackoverflow.com/users/693546</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33436700/rabbitmq-setup-tls-with-intermediate-wildcard-certifcate"/>
+        <published>2015-10-30T13:04:33Z</published>
+        <updated>2015-11-01T14:25:15Z</updated>
+        <summary type="html">                        &lt;p>I am using latest RabbitMq 3.5.6 with Erlang 18.1 on Ubuntu. &lt;/p>&lt;p>I want to secure communication with TLS. So I bought a wildcard certificate (AlphaSSL) which comes with an Intermediate cert chain.&lt;/p>&lt;p>(Removed Certs)&lt;/p>&lt;p>I am using the same certificate to secure Nginx and Apache2. The cert works there. &lt;/p>&lt;p>But in RabbitMq, I dont know how to get it working properly. At some stage of my testing, I had "Verfiy Ok" when testing with &lt;code>openssl -sclient&lt;/code>... Then switched to browser, but management Interface doesn't even load: SSL_SEC_ERR in Chrome... &lt;/p>&lt;p>This is the config of the management section: &lt;/p>&lt;p>&lt;strong>UPDATE:&lt;/strong> This config works. After doing &lt;code>apt-get install erlang-ssl --reinstall&lt;/code> it suddenly works as expected. Make sure to use latest Erlang 18.1 Version from &lt;a href="http://erlang-solutions.com/downloads/download-erlang-otp" rel="nofollow">http://erlang-solutions.com/downloads/download-erlang-otp&lt;/a> which contains some TLS related fixes&lt;/p>&lt;p>rabbitmq.config:&lt;/p>&lt;pre>&lt;code>{rabbitmq_management,   {listener, [{port,     15672},                {ssl,      true},                {ssl_opts, [{cacertfile, "/etc/rabbitmq/ssl/Intermediate_CA_Bundle.crt"},                            {certfile,   "/etc/rabbitmq/ssl/domain.crt"},                            {keyfile,    "/etc/rabbitmq/ssl/domain.key"},                            {depth, 2},                            {verify, verify_none},                            {fail_if_no_peer_cert, false}]}]}&lt;/code>&lt;/pre>&lt;p>mablae&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33441775</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Make error with erlang.mk</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="cowboy"/>
+        <author>
+            <name>Jason Basanese</name>
+            <uri>http://stackoverflow.com/users/4982354</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33441775/make-error-with-erlang-mk"/>
+        <published>2015-10-30T17:33:28Z</published>
+        <updated>2015-10-31T20:39:31Z</updated>
+        <summary type="html">                        &lt;p>While following the tutorial found here:&lt;a href="http://ninenines.eu/docs/en/cowboy/HEAD/guide/getting_started/" rel="nofollow">http://ninenines.eu/docs/en/cowboy/HEAD/guide/getting_started/&lt;/a>I did the following commands;&lt;/p>&lt;pre>&lt;code>mkdir hello_erlangcd hello_erlangwget https://raw.githubusercontent.com/ninenines/erlang.mk/master/erlang.mk&lt;/code>&lt;/pre>&lt;p>After following all these preceding steps in that tutorial, I typed;&lt;/p>&lt;pre>&lt;code>make -f erlang.mk bootstrap bootstrap-rel&lt;/code>&lt;/pre>&lt;p>while in the ~/hello_erlang directory. This resulted in the following error.&lt;/p>&lt;pre>&lt;code>make: erlang.mk: No such file or directorymake: *** No rule to make target `erlang.mk'.  Stop.&lt;/code>&lt;/pre>&lt;p>I'm working in Ubuntu 14.04.The question is- What packages or steps am I messing that resulted in this error and how might I get those and correct myself?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33454103</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">kerl --with-wx doesn't create wxe_driver.so</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="wx"/>
+        <category scheme="http://stackoverflow.com/tags" term="kerl"/>
+        <author>
+            <name>Don Branson</name>
+            <uri>http://stackoverflow.com/users/56076</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33454103/kerl-with-wx-doesnt-create-wxe-driver-so"/>
+        <published>2015-10-31T16:52:23Z</published>
+        <updated>2015-10-31T18:57:58Z</updated>
+        <summary type="html">                        &lt;p>&lt;code>kerl --with-wx&lt;/code> doesn't create an erlang installation with wxe_driver.so. Should it? I'm trying to make an erlang build that will run observe, but still get:&lt;/p>&lt;pre>&lt;code>ERROR: Could not find 'wxe_driver.so' in: /home/don/erlangs/17.4/lib/wx-1.3.2/priv&lt;/code>&lt;/pre>&lt;p>.kerlrc contains:&lt;/p>&lt;pre>&lt;code>KERL_CONFIGURE_OPTIONS="--with-wx"&lt;/code>&lt;/pre>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33452839</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Erlang modules on different physical servers</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="distributed-computing"/>
+        <category scheme="http://stackoverflow.com/tags" term="otp"/>
+        <category scheme="http://stackoverflow.com/tags" term="mnesia"/>
+        <author>
+            <name>ruffnecktsk t</name>
+            <uri>http://stackoverflow.com/users/3980563</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33452839/erlang-modules-on-different-physical-servers"/>
+        <published>2015-10-31T14:44:16Z</published>
+        <updated>2015-10-31T15:22:11Z</updated>
+        <summary type="html">                        &lt;p>I have an OTP application with following structure: &lt;img src="http://i.stack.imgur.com/cihH8.png" alt="diagram">&lt;/p>&lt;p>What needed:&lt;/p>&lt;ol>&lt;li>Services(1,2,3) need to talk to each other.&lt;/li>&lt;li>Service1 on one physical server, service2 on other physical server, etc.&lt;/li>&lt;li>Mnesia database shared for all services.&lt;/li>&lt;/ol>&lt;p>How can I accomplish this?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33426727</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Can't start supervisor from yaws runmod</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="yaws"/>
+        <author>
+            <name>Lyn Headley</name>
+            <uri>http://stackoverflow.com/users/692065</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33426727/cant-start-supervisor-from-yaws-runmod"/>
+        <published>2015-10-29T23:57:01Z</published>
+        <updated>2015-10-30T21:35:54Z</updated>
+        <summary type="html">                        &lt;p>I have a yaws runmod defined in yaws.conf as:&lt;/p>&lt;pre>&lt;code>runmod = sg_app&lt;/code>&lt;/pre>&lt;p>the module contains an exported function:&lt;/p>&lt;pre>&lt;code>start()-&amp;gt;    io:format("~p start~n", [ sg_sup:start_link() ]).&lt;/code>&lt;/pre>&lt;p>When I start yaws I see a call to the runmod:&lt;/p>&lt;blockquote>  &lt;p>=INFO REPORT==== 29-Oct-2015::16:46:51 === sync call sg_app:start &lt;/p>    &lt;p>{ok,&amp;lt;0.61.0>} start&lt;/p>&lt;/blockquote>&lt;p>But the supervisor is nonexistent:&lt;/p>&lt;pre>&lt;code>1&amp;gt; whereis(sg_sup).undefined&lt;/code>&lt;/pre>&lt;p>If I call the runmod:start manually, the supervisor hangs around.&lt;/p>&lt;pre>&lt;code>2&amp;gt; sg_app:start(). {ok,&amp;lt;0.73.0&amp;gt;} startok3&amp;gt; whereis(sg_sup).&amp;lt;0.73.0&amp;gt;&lt;/code>&lt;/pre>&lt;p>What have I done wrong?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/200469</id>
+        <re:rank scheme="http://stackoverflow.com">529</re:rank>
+        <title type="text">What is the difference between a process and a thread</title>
+        <category scheme="http://stackoverflow.com/tags" term="multithreading"/>
+        <category scheme="http://stackoverflow.com/tags" term="process"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="semantics"/>
+        <author>
+            <name>James Fassett</name>
+            <uri>http://stackoverflow.com/users/27081</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread"/>
+        <published>2008-10-14T09:13:24Z</published>
+        <updated>2015-10-30T15:13:26Z</updated>
+        <summary type="html">                        &lt;p>What is the technical difference between a process and a thread? I get the feeling a word like 'process' is over used and there is also hardware and software threads. How about light-weight processes in languages like Erlang? Is there a definitive reason to use one term over the other?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33406088</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Erlang - Is it possible to make the messages that appear on erlang shell appear on linux shell too?</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang-shell"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang-escript"/>
+        <author>
+            <name>Anto Joy</name>
+            <uri>http://stackoverflow.com/users/5336811</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33406088/erlang-is-it-possible-to-make-the-messages-that-appear-on-erlang-shell-appear"/>
+        <published>2015-10-29T04:43:33Z</published>
+        <updated>2015-10-30T13:44:02Z</updated>
+        <summary type="html">                        &lt;p>I have created a small test application and when on a linux machine I would like to see the messages that appear on the erlang shell to appear on the linux as well. I am not sure how it could be done, but is it possible?&lt;/p>&lt;p>I am running the application in detached mode(erlang shell).&lt;/p>&lt;p>EDIT:&lt;/p>&lt;p>I meant the message passing to the linux shell.&lt;/p>&lt;p>Example:When I start my application using,&lt;/p>&lt;pre>&lt;code>test application &amp;lt;start/stop&amp;gt;&lt;/code>&lt;/pre>&lt;p>I would get a message on the Linux shell &lt;em>Test Application has successfully started&lt;/em>&lt;/p>&lt;p>But if I was like copying files, I would like the progress of the file copy to be displayed on the Linux shell like,&lt;/p>&lt;p>Copy successful. Number of files copied : 1&lt;br/>Copy successful. Number of files copied : 2&lt;br/>....&lt;/p>&lt;p>So is it possible to do the above using the message passing from Erlang to Linux?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/18011784</id>
+        <re:rank scheme="http://stackoverflow.com">66</re:rank>
+        <title type="text">Why are there two kinds of functions in Elixir?</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="elixir"/>
+        <author>
+            <name>Alex Marandon</name>
+            <uri>http://stackoverflow.com/users/348867</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/18011784/why-are-there-two-kinds-of-functions-in-elixir"/>
+        <published>2013-08-02T08:04:16Z</published>
+        <updated>2015-10-30T07:35:22Z</updated>
+        <summary type="html">                        &lt;p>I'm learning Elixir and I wonder why it has two types of functions:&lt;/p>&lt;ul>&lt;li>functions defined in a module with &lt;code>def&lt;/code>, called using &lt;code>myfunction(param1, param2)&lt;/code>&lt;/li>&lt;li>anonymous functions defined with &lt;code>fn&lt;/code>, called using &lt;code>myfn.(param1, param2)&lt;/code>&lt;/li>&lt;/ul>&lt;p>Only the second kind of function seems to be a first-class object and can be passed as a parameter to other functions. A function defined in a module needs to be wrapped in a &lt;code>fn&lt;/code>. There's some syntactic sugar which looks like &lt;code>otherfunction(myfunction(&amp;amp;1, &amp;amp;2))&lt;/code> in order to make that easy, but why is it necessary in the first place? Why can't we just do &lt;code>otherfunction(myfunction))&lt;/code>? Is it only to allow calling module functions without parenthesis like in Ruby? It seems to have inherited this characteristic from Erlang which also has module functions and funs, so does it actually comes from how the Erlang VM works internally?&lt;/p>&lt;p>It there any benefit having two types of functions and converting from one type to another in order to pass them to other functions? Is there a benefit having two different notations to call functions?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33426924</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Erlang, Is it possible to reload or upgrade a nif library without restart the shell?</title>
+        <category scheme="http://stackoverflow.com/tags" term="c"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <author>
+            <name>Amin</name>
+            <uri>http://stackoverflow.com/users/4481943</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33426924/erlang-is-it-possible-to-reload-or-upgrade-a-nif-library-without-restart-the-sh"/>
+        <published>2015-10-30T00:15:43Z</published>
+        <updated>2015-10-30T00:36:10Z</updated>
+        <summary type="html">                        &lt;p>I have a nif library and every time i recompile it, I must restart the shell to reload or upgrade this library.&lt;/p>&lt;p>Here is my erlang code:&lt;/p>&lt;pre>&lt;code>-module(q4).-export([init/0]).-on_load(init/0).init() -&amp;gt;    erlang:load_nif("./q4_nif", reload).&lt;/code>&lt;/pre>&lt;p>Every time i compile the erlang module, this error occurs:&lt;/p>&lt;pre>&lt;code>`The on_load function for module q4 returned {error,                                         {upgrade,                                          "Upgrade not supported by this NIF library."}}`&lt;/code>&lt;/pre>&lt;p>and when i call &lt;code>init/0&lt;/code> function, this error occurs:&lt;code>{error,{reload,"Reload not supported by this NIF library."}}&lt;/code>&lt;/p>&lt;p>Is there anyway to fix this problem and load new nif library without restarting the shell?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33425833</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Extract, transform, load within Rabbit?</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="rabbitmq"/>
+        <category scheme="http://stackoverflow.com/tags" term="etl"/>
+        <author>
+            <name>vinnylinux</name>
+            <uri>http://stackoverflow.com/users/983333</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33425833/extract-transform-load-within-rabbit"/>
+        <published>2015-10-29T22:36:03Z</published>
+        <updated>2015-10-30T00:19:15Z</updated>
+        <summary type="html">                        &lt;p>One of the things that i do pretty often is transforming SQL data into cache and document-based stores, for performance reasons. I don't want my frontend applications hitting my database, so i have high-speed cache solutions, as well efficient Solr and other solutions.&lt;/p>&lt;p>I use RabbitMQ as the central communication hub to achieve this ETL flow, which looks like this: Backend application sends a message to Rabbit with the new data, or changes made into existing data. I then have a node.js script which consumes the queue, makes small batches of data and populates all the necessary systems: Redis, Mongo, Solr, etc.&lt;/p>&lt;p>However, i'm wondering if there's a better way of doing this. Maybe Rabbit has some kind of scripting support to create erlang logic for queues?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33410091</id>
+        <re:rank scheme="http://stackoverflow.com">-2</re:rank>
+        <title type="text">Automatically load data into CouchDB from Twitter [on hold]</title>
+        <category scheme="http://stackoverflow.com/tags" term="database"/>
+        <category scheme="http://stackoverflow.com/tags" term="twitter"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="couchdb"/>
+        <author>
+            <name>Bryn</name>
+            <uri>http://stackoverflow.com/users/4852251</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33410091/automatically-load-data-into-couchdb-from-twitter"/>
+        <published>2015-10-29T09:16:34Z</published>
+        <updated>2015-10-29T21:29:16Z</updated>
+        <summary type="html">                        &lt;p>I have a couchDB and want to select tweets from twitter and put the quantity of that word into the DB. Ex: HelloWorld appears 1000 times, the DB would have a field of HelloWorld and Value of "1000". Like below.&lt;/p>&lt;pre>&lt;code>Field            ..  Value"HelloWorld"    ..  "1000"&lt;/code>&lt;/pre>&lt;p>Since the DB only stores, I need something else to look for tweets and put them into the DB - which is were I do not know what to use.&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33423828</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Erlang, pass an nif object between functions</title>
+        <category scheme="http://stackoverflow.com/tags" term="c"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="alloc"/>
+        <author>
+            <name>Amin</name>
+            <uri>http://stackoverflow.com/users/4481943</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33423828/erlang-pass-an-nif-object-between-functions"/>
+        <published>2015-10-29T20:19:35Z</published>
+        <updated>2015-10-29T20:19:35Z</updated>
+        <summary type="html">                        &lt;p>I write a &lt;code>C nif code&lt;/code> and in function &lt;code>new&lt;/code>, it creates a stack struct with &lt;code>enif_alloc_resource&lt;/code> and returns that. when i use function &lt;code>enif_make_resources&lt;/code>, it always returns &lt;code>&amp;lt;&amp;lt;&amp;gt;&amp;gt;&lt;/code> in erlang.&lt;/p>&lt;p>Here is my C code:&lt;/p>&lt;pre>&lt;code>#include "erl_nif.h"static ErlNifResourceType *MEM_RESOURCE;typedef struct{    int n;    int ps;    int pe;    ERL_NIF_TERM *data;} Stack;Stack *new(ErlNifEnv *env, int size){    Stack *s = (Stack*) enif_alloc_resource(MEM_RESOURCE, sizeof(Stack));    s-&amp;gt;n = size;    s-&amp;gt;ps = 0;    s-&amp;gt;pe = size - 1;    s-&amp;gt;data = enif_alloc(sizeof(ERL_NIF_TERM) * size);    return s;}static ERL_NIF_TERM new_nif(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]){    int size;    if (!enif_get_int(env, argv[0], &amp;amp;size))        return enif_make_badarg(env);    Stack *stack = new(env, size);    ERL_NIF_TERM res = enif_make_resource(env, stack);    enif_release_resource(stack);    return res;}static ErlNifFunc nif_funcs[] ={    {"new", 1, new_nif}};static void cleanup(ErlNifEnv *env, void *obj){}static int load(ErlNifEnv *env, void **priv_data, ERL_NIF_TERM load_info){    MEM_RESOURCE = enif_open_resource_type(env, NULL, "mem_resource", &amp;amp;cleanup, ERL_NIF_RT_CREATE, 0);    if (MEM_RESOURCE == NULL)        return -1;    return 0;}ERL_NIF_INIT(q4, nif_funcs, load, NULL, NULL, NULL)&lt;/code>&lt;/pre>&lt;p>Now the function &lt;code>new_nif&lt;/code> always returns &lt;code>&amp;lt;&amp;lt;&amp;gt;&amp;gt;&lt;/code> but i checked &lt;code>res&lt;/code> is not &lt;code>NULL&lt;/code>!. What is the problem?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33417742</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Erlang/Mnesia: restricted access to the tables, roles for user access</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="mnesia"/>
+        <author>
+            <name>user2947760</name>
+            <uri>http://stackoverflow.com/users/2947760</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33417742/erlang-mnesia-restricted-access-to-the-tables-roles-for-user-access"/>
+        <published>2015-10-29T15:01:31Z</published>
+        <updated>2015-10-29T15:01:31Z</updated>
+        <summary type="html">                        &lt;p>The matter is: I have a DB on the server that have some users I neeed to make difference in role for each users - one might to write and read, second might only read, last one might nothing. &lt;/p>&lt;p>Question is: Is there any in-box solution for it, or should I make my own? In case of my own - which way is right for it? Currently I have no any imagination how could I restrict the access to db through erlang shell.&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33411840</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Erlang enif_alloc_resource always segmentation fault</title>
+        <category scheme="http://stackoverflow.com/tags" term="c"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <author>
+            <name>Amin</name>
+            <uri>http://stackoverflow.com/users/4481943</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33411840/erlang-enif-alloc-resource-always-segmentation-fault"/>
+        <published>2015-10-29T10:33:53Z</published>
+        <updated>2015-10-29T11:13:05Z</updated>
+        <summary type="html">                        &lt;p>I write a &lt;code>c nif&lt;/code> code and when i call the function &lt;code>find_next&lt;/code>, erlang vm exits with segmentation fault in line &lt;code>struct Node *n = (struct Node*) enif_alloc_resource(MEM_RESOURCE, sizeof(Node));&lt;/code>.&lt;/p>&lt;p>C code:&lt;/p>&lt;pre>&lt;code>struct Node {    int n;    int* elems;    int c;} Node;static ErlNifResourceType *MEM_RESOURCE;static ERL_NIF_TERM find_next_nif(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]){    int len;    const ERL_NIF_TERM *args;    if (!enif_get_tuple(env, argv[0], &amp;amp;len, &amp;amp;args))        return enif_make_badarg(env);    struct Node *n = (struct Node*) enif_alloc_resource(MEM_RESOURCE, sizeof(Node));    return enif_make_int(env, 0);}&lt;/code>&lt;/pre>&lt;p>What is the problem?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33411360</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Erlang - Why cant I use size() of a value when pattern matching a binary?</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <author>
+            <name>Anto Joy</name>
+            <uri>http://stackoverflow.com/users/5336811</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33411360/erlang-why-cant-i-use-size-of-a-value-when-pattern-matching-a-binary"/>
+        <published>2015-10-29T10:12:46Z</published>
+        <updated>2015-10-29T10:45:36Z</updated>
+        <summary type="html">                        &lt;p>Assigned values,&lt;/p>&lt;pre>&lt;code>A = &amp;lt;&amp;lt;"hell"&amp;gt;&amp;gt;&lt;/code>&lt;/pre>&lt;p>I have two code snippets which should do the same operation,&lt;/p>&lt;pre>&lt;code>&amp;lt;&amp;lt;A:size(A)/binary, Rest/binary&amp;gt;&amp;gt; = &amp;lt;&amp;lt;"hello"&amp;gt;&amp;gt;&lt;/code>&lt;/pre>&lt;p>The above fails with the reason : &lt;em>syntax error before: '('&lt;/em>&lt;/p>&lt;p>Then I assign value of size(A) to B,&lt;/p>&lt;pre>&lt;code>B = size(A)&lt;/code>&lt;/pre>&lt;p>Then the following snippet works,&lt;/p>&lt;pre>&lt;code>&amp;lt;&amp;lt;A:B/binary, Rest/binary&amp;gt;&amp;gt; = &amp;lt;&amp;lt;"hello"&amp;gt;&amp;gt;&lt;/code>&lt;/pre>&lt;p>Why wont the first work?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33394974</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Integrate CouchDB with Erlang to connect to Server</title>
+        <category scheme="http://stackoverflow.com/tags" term="database"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="server"/>
+        <category scheme="http://stackoverflow.com/tags" term="couchdb"/>
+        <author>
+            <name>Bryn</name>
+            <uri>http://stackoverflow.com/users/4852251</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33394974/integrate-couchdb-with-erlang-to-connect-to-server"/>
+        <published>2015-10-28T15:21:14Z</published>
+        <updated>2015-10-29T09:53:00Z</updated>
+        <summary type="html">                        &lt;p>How do to integrate couchDB with Erlang to then make connection to a server.&lt;/p>&lt;p>I have a website running, I would like to make a connection between couchDB (which is running and have made a few 'documents' with values).&lt;/p>&lt;p>Checked &lt;a href="http://wiki.apache.org/couchdb/Getting_started_with_Erlang" rel="nofollow">http://wiki.apache.org/couchdb/Getting_started_with_Erlang&lt;/a> - documentation was outdated and disc-continued&lt;/p>&lt;p>Checked &lt;a href="https://cwiki.apache.org/confluence/display/COUCHDB/Introduction" rel="nofollow">https://cwiki.apache.org/confluence/display/COUCHDB/Introduction&lt;/a> - They say that " In addition to the fantastic replication features, CouchDB's reliability and scalability is further enhanced by being implemented in the Erlang programming language. Erlang has built-in support for concurrency, distribution, fault tolerance, and has been used for years to build reliable systems in the telecommunications industry. By design, the Erlang language and runtime are able to take advantage of newer hardware with multiple CPU core"&lt;/p>&lt;p>On a general note, I need explanation on how I can make a connection to the server. How does it all work and look?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/5564028</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Chat application using socket programming (Erlang) in php</title>
+        <category scheme="http://stackoverflow.com/tags" term="php"/>
+        <category scheme="http://stackoverflow.com/tags" term="jquery"/>
+        <category scheme="http://stackoverflow.com/tags" term="sockets"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="chat"/>
+        <author>
+            <name>Anil Kumar Panigrahi</name>
+            <uri>http://stackoverflow.com/users/328671</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/5564028/chat-application-using-socket-programming-erlang-in-php"/>
+        <published>2011-04-06T09:15:22Z</published>
+        <updated>2015-10-29T05:27:43Z</updated>
+        <summary type="html">                        &lt;p>I have implemented a chat application using jquery, mysql and php and it is requesting the server more than 100 times for a certain interval of time and log file completed. The processing of the remaining site is very slow. Please suggest to me how to implement the chat application using socket programming and php.&lt;/p>&lt;p>I found the link here &lt;a href="http://code.google.com/p/mypeb/" rel="nofollow">http://code.google.com/p/mypeb/&lt;/a>&lt;/p>&lt;p>I want to follow the application using Erlang. When I searched on google I found some code PEB ( PHP - Erlang Bridge) extension but how can we install that extension in localhost ( WAMP - Windows XP ) system.&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33392161</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Mnesia database design for storing message that needs to be sent in the future</title>
+        <category scheme="http://stackoverflow.com/tags" term="design"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="ejabberd"/>
+        <category scheme="http://stackoverflow.com/tags" term="mnesia"/>
+        <author>
+            <name>Talespin_Kit</name>
+            <uri>http://stackoverflow.com/users/579689</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33392161/mnesia-database-design-for-storing-message-that-needs-to-be-sent-in-the-future"/>
+        <published>2015-10-28T13:20:02Z</published>
+        <updated>2015-10-28T15:15:55Z</updated>
+        <summary type="html">                        &lt;p>I am writing a ejabberd module where the user controls when the message is delivered to the recipient instead of delivering immediately(like birthday wishes sending in advance). This is done by adding a custom xml element to the message stanza like the following &lt;/p>&lt;pre>&lt;code>&amp;lt;message xmlns="jabber:client" from="test2@ubuntu" to="test1@ubuntu/32375806281445450055240436" type="chat"&amp;gt;  &amp;lt;schedule xmlns="ank" year="2015" month="10" day="19" hour="22" minute="36" second="13"/&amp;gt;  &amp;lt;body&amp;gt;hi&amp;lt;/body&amp;gt;&amp;lt;/message&amp;gt;&lt;/code>&lt;/pre>&lt;p>Now these scheduled messages has to be stored in the mnesia database and send to the recipient when the time arrives.&lt;/p>&lt;p>&lt;strong>Approach 1:&lt;/strong>One approach is to create a table for every user, when the message is received, store the message to the users table and set a timer to process the message and delete when done like the following sample code&lt;/p>&lt;pre>&lt;code>timer:apply_after(SecondsDelay, ?MODULE, post_message_delete, [TableName, RecordUniqueKeyHash, From, To, Packet]). &lt;/code>&lt;/pre>&lt;p>The &lt;strong>post_message_delete&lt;/strong> method will send the message when called after the timer expires using the route method as shown in the following and delete the record from the mnesia database. &lt;/p>&lt;pre>&lt;code>    ejabberd_router:route(From, To, Packet)&lt;/code>&lt;/pre>&lt;p>Creating a table for every user is not feasible due to the limitations on the number of tables in mnesia.&lt;/p>&lt;p>&lt;strong>Approach 2:&lt;/strong>Another approach is to store all the users messages in one single table and set the timer(same as above) for every message as the message arrives and once the message is processed delete it.&lt;/p>&lt;p>The whole idea of using the mnesia database is to process the messages reliably in the case of ejabberd server crash.&lt;/p>&lt;p>To achieve this we use a pid field in the record of every message. There is a pid field for every message record that contains the pid of the process that is processing this message. Initially it is undefined(When the message arrives at the filter_packet hook) but after when the message processing method is spawned it updates the pid in the record in the mnesia database. &lt;/p>&lt;p>So if the server crashes on reboot in the modules start method all the messages are iterated and checked if the pid is alive(is_process_alive), if not alive then spawn the processing method on the message which will update with the new process pid, process the message and delte once done.&lt;/p>&lt;p>&lt;strong>Drawbacks&lt;/strong>The drawback of this method is that even if a message has to be delivered far in the future(next month or next year) still a process is running for this message and there are as many processes running as there as many messages.&lt;/p>&lt;p>&lt;strong>Approach 3:&lt;/strong> &lt;/p>&lt;p>To over come the drawbacks of Approach 2, scan the database every hour and accumulate the messages that has to be delivered only for the next hour and process it. &lt;/p>&lt;p>The drawback with this approach is that the database is scanned every hour that might impact performance.&lt;/p>&lt;p>&lt;strong>Approach 4:&lt;/strong>&lt;/p>&lt;p>To over come the performance of Approach 3, we can create tables for every year_month and spawn the message processing function only on the current months table. &lt;/p>&lt;p>What other approach is best suited for this use case using mnesia database?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33389770</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Create mnesia tables without using atoms</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="ejabberd"/>
+        <category scheme="http://stackoverflow.com/tags" term="mnesia"/>
+        <author>
+            <name>Talespin_Kit</name>
+            <uri>http://stackoverflow.com/users/579689</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33389770/create-mnesia-tables-without-using-atoms"/>
+        <published>2015-10-28T11:25:02Z</published>
+        <updated>2015-10-28T11:25:02Z</updated>
+        <summary type="html">                        &lt;p>I have a requirement where i need to create a mnesia table for every ejabberd user. Since the users are large and their username is not known in advance, the mnesia tables with the username has to be created at runtime. Currently this is done by creating the atoms dynamically for the table-name as the &lt;strong>mnesia:create_table&lt;/strong> methods takes the table name as an atom using the following code.&lt;/p>&lt;pre>&lt;code>-record(schedule_msg, {schedule_hash, from, to, packet, pid}).mnesia:create_table(list_to_atom(lists:concat(["schedule_msg_", From#jid.user])),        [{disc_only_copies, [node()]}, {type, set},         {attributes, record_info(fields, schedule_msg)}]),&lt;/code>&lt;/pre>&lt;p>In the &lt;a href="http://learnyousomeerlang.com/starting-out-for-real#atoms" rel="nofollow">http://learnyousomeerlang.com/starting-out-for-real#atoms&lt;/a> it is recommended not to create atoms dynamically as it is not garbage collected and the atom lookup table is of finite size.&lt;/p>&lt;p>So how to create mnesia tables without using atom's ? &lt;/p>&lt;p>&lt;strong>or&lt;/strong> &lt;/p>&lt;p>There should not be as many tables as the number of users in the first place. Is it a bad design from the view of performance?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33377262</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Pass args through rebar shell to erl?</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="rebar"/>
+        <category scheme="http://stackoverflow.com/tags" term="erl"/>
+        <author>
+            <name>Lyn Headley</name>
+            <uri>http://stackoverflow.com/users/692065</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33377262/pass-args-through-rebar-shell-to-erl"/>
+        <published>2015-10-27T19:53:04Z</published>
+        <updated>2015-10-27T20:15:59Z</updated>
+        <summary type="html">                        &lt;p>I am using "rebar shell" to test my app. This is documented as:&lt;/p>&lt;blockquote>  &lt;p>Start a shell with project and deps preloaded similar to&lt;/p>&lt;pre>&lt;code>'erl -pa ebin -pa deps/*/ebin'.&lt;/code>&lt;/pre>&lt;/blockquote>&lt;p>How do I add extra args to the underlying invocation of 'erl'? Forexample, I want to add application specific environment variables andrun a Module/Function. I want to invoke something like:&lt;/p>&lt;pre>&lt;code> erl -pa ebin -pa deps/*/ebin -browser_spy browser_exe "/my/dir" -run bs_example test&lt;/code>&lt;/pre>&lt;p>(and I want code:priv_dir to work as it does when using rebar shell,which the above 'erl' command does not do).&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33374090</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Display connection specific cookies in Erlang</title>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <author>
+            <name>jvf</name>
+            <uri>http://stackoverflow.com/users/2973513</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33374090/display-connection-specific-cookies-in-erlang"/>
+        <published>2015-10-27T17:00:56Z</published>
+        <updated>2015-10-27T17:42:07Z</updated>
+        <summary type="html">                        &lt;p>When setting a cookie on a node with &lt;code>erlang:set_cookie/2&lt;/code> it is possible to set different cookies for different nodes. Is there any way to display, which cookie is set for which node? &lt;/p>&lt;p>Calling &lt;code>erlang:get_cookie/1&lt;/code> does not display this information, only the "default" cookie is displayed.&lt;/p>&lt;p>Example:&lt;/p>&lt;p>Start NodeA with cookie &lt;code>foo&lt;/code> and a NodeB with cookie &lt;code>bar&lt;/code>. At NodeA now set the cookie to use when communicating with NodeB to &lt;code>bar&lt;/code> by calling &lt;code>erlang:set_cookie(NodeB, bar)&lt;/code>. Pinging now works fine, no "Connection attempt from disallowed node..." errors. Calling &lt;code>erlang:get_cookie()&lt;/code> on NodeA however still shows the "default" cookie &lt;code>foo&lt;/code>. How can find which cookie is set for NodeB?&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33372769</id>
+        <re:rank scheme="http://stackoverflow.com">3</re:rank>
+        <title type="text">Why use a compile_pattern for binary:replace?</title>
+        <category scheme="http://stackoverflow.com/tags" term="performance"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="documentation"/>
+        <author>
+            <name>thehowler</name>
+            <uri>http://stackoverflow.com/users/11937</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33372769/why-use-a-compile-pattern-for-binaryreplace"/>
+        <published>2015-10-27T16:01:25Z</published>
+        <updated>2015-10-27T16:19:30Z</updated>
+        <summary type="html">                        &lt;p>Is there any documentation that states why one should use a &lt;code>compile_pattern/1&lt;/code> result as the pattern for &lt;code>binary:replace/4&lt;/code> to search for?&lt;/p>&lt;p>I suspect it's for performance reasons but I can't find anything official that states as such.&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33301788</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to create Error log for ejabberd messages</title>
+        <category scheme="http://stackoverflow.com/tags" term="module"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="xmpp"/>
+        <category scheme="http://stackoverflow.com/tags" term="ejabberd"/>
+        <author>
+            <name>Nitin</name>
+            <uri>http://stackoverflow.com/users/5303487</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33301788/how-to-create-error-log-for-ejabberd-messages"/>
+        <published>2015-10-23T11:58:55Z</published>
+        <updated>2015-10-27T12:58:26Z</updated>
+        <summary type="html">                        &lt;p>I have ejabberd 15.07 and i need to create Error log that logs only message that are returned back as error to its originator. we have user_send_packet hook using which it is possible to log all the packets sent to server but how to filter the error messages from it?&lt;/p>&lt;p>When client sends a message,this message is first received at server where server parse this Xml packet to verify it syntactically, beside that perform  privacy and auth check also before routing it to it's receiver. if server finds any error or sender of this message lacks any authorization , it return this message back to sender and modify its type to error to inform him.now what i need is to trace this message before routing back to it's sender.  &lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33338905</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">process blocked in gen_tcp send/2 because of port command no return</title>
+        <category scheme="http://stackoverflow.com/tags" term="sockets"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="ejabberd"/>
+        <category scheme="http://stackoverflow.com/tags" term="gen-tcp"/>
+        <author>
+            <name>Gang Zhao</name>
+            <uri>http://stackoverflow.com/users/5479959</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33338905/process-blocked-in-gen-tcp-send-2-because-of-port-command-no-return"/>
+        <published>2015-10-26T05:18:06Z</published>
+        <updated>2015-10-27T08:39:06Z</updated>
+        <summary type="html">                        &lt;p>&lt;em>Generally in ejabberd , i route message to client process,  send to tcp socket via this function. And it works well most time. &lt;/em>Module ejabberd_c2s.erl&lt;/p>&lt;pre>&lt;code>   send_text(StateData, Text) when StateData#state.mgmt_state == active -&amp;gt;catch ?INFO_MSG("Send XML on stream = ~ts", [Text]),case catch (StateData#state.sockmod):send(StateData#state.socket, Text) of  {'EXIT', _} -&amp;gt;    (StateData#state.sockmod):close(StateData#state.socket),    error;  _ -&amp;gt;    okend;&lt;/code>&lt;/pre>&lt;p>But in some cases the c2s pid blocked on gen_tcp:send like this &lt;/p>&lt;pre>&lt;code>erlang:process_info(pid(0,8353,11)).[{current_function,{prim_inet,send,3}},{initial_call,{proc_lib,init_p,5}},{status,waiting},{message_queue_len,96},{messages ...}...&lt;/code>&lt;/pre>&lt;p>Most cases happened when user's network status not so good, the receiver process should send 2 messages to c2s pid  , and c2s  would terminate session or wait for resume&lt;/p>&lt;p>&lt;strong>{'$gen_event',closed}&lt;/strong>&lt;br/>&lt;strong>{'DOWN',#Ref&amp;lt;0.0.1201.250595>,process,&amp;lt;0.19617.245>,normal}&lt;/strong>&lt;br/>&lt;/p>&lt;p>I printed message queue in the c2s process, the 2 msg are in the queue, waiting to be handled. Unfortunately,the queue does not move any more becasue  the process had blocked before handling these messages, as described above, stacked at prim_inet:send/3 when tring to do gen_tcp:send/2.The queue grows very large after days, and ejabberd crahes when the process asking for more memory.&lt;/p>&lt;pre>&lt;code>prim_inet:send/3 source :send(S, Data, OptList) when is_port(S), is_list(OptList) -&amp;gt;?DBG_FORMAT("prim_inet:send(~p, ~p)~n", [S,Data]),try erlang:port_command(S, Data, OptList) offalse -&amp;gt; % Port busy and nosuspend option passed    ?DBG_FORMAT("prim_inet:send() -&amp;gt; {error,busy}~n", []),    {error,busy};true -&amp;gt;    receive    {inet_reply,S,Status} -&amp;gt;        ?DBG_FORMAT("prim_inet:send() -&amp;gt; ~p~n", [Status]),        Status    endcatcherror:_Error -&amp;gt;    ?DBG_FORMAT("prim_inet:send() -&amp;gt; {error,einval}~n", []),    {error,einval}end.&lt;/code>&lt;/pre>&lt;p>&lt;br/>It seems the port driver did not reply {inet_reply,S,Status}  after erlang:port_command(S, Data, OptList) .the gen_tcp:send function would block sometimes, Can anyone explain this?&lt;br/>&lt;/p>&lt;p>related questions&lt;br/>&lt;a href="http://erlang.org/pipermail/erlang-questions/2015-July/085254.html" rel="nofollow">http://erlang.org/pipermail/erlang-questions/2015-July/085254.html&lt;/a>&lt;a href="http://erlang.org/pipermail/erlang-questions/2014-November/081724.html" rel="nofollow">http://erlang.org/pipermail/erlang-questions/2014-November/081724.html&lt;/a>&lt;/p>        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33346343</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Error while filling subscription list for ejabberd 15.07</title>
+        <category scheme="http://stackoverflow.com/tags" term="module"/>
+        <category scheme="http://stackoverflow.com/tags" term="erlang"/>
+        <category scheme="http://stackoverflow.com/tags" term="xmpp"/>
+        <category scheme="http://stackoverflow.com/tags" term="ejabberd"/>
+        <author>
+            <name>Nitin</name>
+            <uri>http://stackoverflow.com/users/5303487</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33346343/error-while-filling-subscription-list-for-ejabberd-15-07"/>
+        <published>2015-10-26T12:57:25Z</published>
+        <updated>2015-10-27T08:20:26Z</updated>
+        <summary type="html">                        &lt;p>I have ejabberd 15.07 setup, while user querying roster it is resulting into error, what could be the possible reason for it.  &lt;/p>&lt;p>Here I am sharing error log which is given below: &lt;/p>&lt;pre>&lt;code>{function_clause,[{mod_roster,raw_to_record,[&amp;lt;&amp;lt;"xyz.app.com"&amp;gt;&amp;gt;,error],[{file,"src/mod_roster.erl"},{line,1291}]},{mod_roster,fill_subscription_lists,4,[{file,"src/mod_roster.erl"},{line,688}]},{ejabberd_hooks,safe_apply,3,[{file,"src/ejabberd_hooks.erl"},{line,385}]},{ejabberd_hooks,run_fold1,4,[{file,"src/ejabberd_hooks.erl"},{line,368}]},{ejabberd_c2s,wait_for_session,2,[{file,"src/ejabberd_c2s.erl"},{line,1126}]},{p1_fsm,handle_msg,10,[{file,"src/p1_fsm.erl"},{line,582}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}running hook: {roster_get_subscription_lists,[&amp;lt;&amp;lt;"0123456789"&amp;gt;&amp;gt;,&amp;lt;&amp;lt;"xyz.app.com"&amp;gt;&amp;gt;]}&lt;/code>&lt;/pre>&lt;p>Yes I have updated record in rosterusers table.I wanted  to perform authorization subscription from server while user add a contact to its roster and it is working fine.For few of my user i am getting the above error .Though i did the same for all contacts and have verify the database records too. &lt;/p>&lt;p>Does manually updating records  will result into error ?&lt;/p>        </summary>
+    </entry>
+</feed>
