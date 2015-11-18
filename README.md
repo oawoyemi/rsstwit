@@ -1,2 +1,2 @@
 # rsstwit
-RSS to twitter publisher
+Syndication feed twitter publisher
