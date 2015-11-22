@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:re="http://purl.org/atompub/rank/1.0">
+    <title type="text">Active questions tagged erlang - Stack Overflow</title>
+    <link rel="self" href="http://stackoverflow.com/feeds/tag?tagnames=erlang" type="application/atom+xml" />
+    <link rel="alternate" href="http://stackoverflow.com/questions/tagged/?tagnames=erlang&amp;sort=active" type="text/html" />
+    <subtitle>most recent 30 from stackoverflow.com</subtitle>
+    <updated>2015-11-11T10:32:54Z</updated>
+    <id>http://stackoverflow.com/feeds/tag?tagnames=erlang</id>
+    <creativeCommons:license>http://www.creativecommons.org/licenses/by-sa/3.0/rdf</creativeCommons:license> 
+    <entry>
+        <id>http://stackoverflow.com/q/33645336</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">what&#39;s the difference between list_to_binary and iolist_to_binary?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>BlackMamba</name>
+            <uri>http://stackoverflow.com/users/2223579</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33645336/whats-the-difference-between-list-to-binary-and-iolist-to-binary" />
+        <published>2015-11-11T06:29:17Z</published>
+        <updated>2015-11-11T09:52:23Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I only know &lt;code&gt;list_to_binary&lt;/code&gt; in erlang otp, but today I see &lt;code&gt;iolist_to_binary&lt;/code&gt;?&lt;/p&gt;
+
+&lt;p&gt;I tried it in erlang shell, but I can&#39;t find the difference.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(ppb1_bs6@esekilvxen263)59&amp;gt; list_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1]]).
+&amp;lt;&amp;lt;1,1&amp;gt;&amp;gt;
+(ppb1_bs6@esekilvxen263)60&amp;gt; iolist_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1]]).
+&amp;lt;&amp;lt;1,1&amp;gt;&amp;gt;
+(ppb1_bs6@esekilvxen263)61&amp;gt; iolist_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1], 1999]).
+** exception error: bad argument
+     in function  iolist_to_binary/1
+        called as iolist_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;,[1],1999])
+(ppb1_bs6@esekilvxen263)62&amp;gt; list_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1], 1999]).  
+** exception error: bad argument
+     in function  list_to_binary/1
+        called as list_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;,[1],1999])
+(ppb1_bs6@esekilvxen263)63&amp;gt; list_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1], &amp;lt;&amp;lt;1999&amp;gt;&amp;gt;]).
+&amp;lt;&amp;lt;1,1,207&amp;gt;&amp;gt;
+(ppb1_bs6@esekilvxen263)64&amp;gt; ioslist_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1], &amp;lt;&amp;lt;1999&amp;gt;&amp;gt;]).
+** exception error: undefined shell command ioslist_to_binary/1
+(ppb1_bs6@esekilvxen263)65&amp;gt; iolist_to_binary([&amp;lt;&amp;lt;1&amp;gt;&amp;gt;, [1], &amp;lt;&amp;lt;1999&amp;gt;&amp;gt;]). 
+&amp;lt;&amp;lt;1,1,207&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From the test, I think &lt;code&gt;iolist_to_binary&lt;/code&gt; may be the same as &lt;code&gt;list_to_binary&lt;/code&gt;.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33641573</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Erlang supervising an UDP listener</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>user3360140</name>
+            <uri>http://stackoverflow.com/users/3360140</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33641573/erlang-supervising-an-udp-listener" />
+        <published>2015-11-10T23:22:38Z</published>
+        <updated>2015-11-11T09:04:47Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am learning Erlang. I want to make a UDP Listener that will be supervised by a supervisor. So if the listener process goes down supervisor will restart the process. Initially I just made a simple UDP listener which works as expected.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;startudplistener() -&amp;gt;
+    {ok, Socket} = gen_udp:open(9000,[binary,{active,false}]),
+    Pid = spawn(pdmanager,udplistener,[Socket]),
+    {ok, Pid}.
+
+udplistener(Socket) -&amp;gt;
+    {ok,Packet} = gen_udp:recv(Socket,0),
+    spawn(pdmanager,handleudp,[Packet]),
+    udplistener(Socket).
+
+handleudp(Packet) -&amp;gt;
+    {_,_, Msg} = Packet,
+    io:format(&quot;I have got message : ~s ~n&quot;,[Msg]),
+    {handeling, Packet}.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, what I want to do is to monitor the udplistener process. For this first I modified my module to a gen_server one. Write a supervisor module afterwards. My supervisor looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-module(pdmanager_sup).
+-behaviour(supervisor).
+
+-export([start_link/1]).
+-export([init/1]).
+
+start_link(Port) -&amp;gt;
+supervisor:start_link({local,?MODULE}, ?MODULE, Port).
+
+init(Port) -&amp;gt;
+    {ok, Socket} = gen_udp:open(Port, [binary, {active, false}]),
+    {ok, {{one_for_one, 5, 60},
+        [{listener,
+            {pdmanager, start_link, [Socket]},
+            permanent, 1000, worker, [pdmanager]}
+        ]}}.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So what Im trying to so is to, open up a new udp socket and pass it to my server and the server will keep on listening to the socket while the supervisor will monitor it. So I came up with the following code.            &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;start_link(Socket) -&amp;gt;
+    gen_server:start_link({local, pdmanager}, pdmanager, Socket, []).
+
+init(Socket) -&amp;gt;
+    io:format(&quot;UDP Server starting ~n&quot;,[]),
+    spawn_link(pdmanager,udplistener,[Socket]),
+    {ok, #state{socket=Socket}}.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am a bit confused with spawn_link that I added within my init function. spawn_link is opening up another process, however it is making a link with the calling process. As per my understanding my supervisor will monitor the calling process here. So, how would my supervisor behave incase my udplistener goes down? If it doesn&#39;t work the way I am expecting (im expecting it will restart my server) what is the best way to do it?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/9343630</id>
+        <re:rank scheme="http://stackoverflow.com">11</re:rank>
+        <title type="text">Command &#39;generate&#39; not understood or not applicable</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="rebar" />
+        <author>
+            <name>Usman Ismail</name>
+            <uri>http://stackoverflow.com/users/706727</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/9343630/command-generate-not-understood-or-not-applicable" />
+        <published>2012-02-18T17:53:24Z</published>
+        <updated>2015-11-11T08:58:49Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am trying to run rebar generate to generate a release for an erlang rebar project and getting the following error. Any ideas what I am doing wrong?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./rebar generate
+Command &#39;generate&#39; not understood or not applicable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am on OSX with erlang version Erlang R14B03 and below is my rebar.conf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{lib_dirs, [&quot;deps&quot;]}.
+{sub_dirs, [&quot;rel&quot;]}.
+{deps, [
+       {folsom, &quot;.*&quot;, {git, &quot;git://github.com/boundary/folsom&quot;, &quot;master&quot;}}
+       ]}.
+
+{require_otp_vsn, &quot;R14|R15&quot;}.
+
+{erl_opts, [
+            fail_on_warning, 
+            debug_info, 
+            warn_missing_spec
+       ]}.
+
+{clean_files, [&quot;*.eunit&quot;, &quot;ebin/*.beam&quot;, &quot;rel/graphsom&quot;]}.
+
+{cover_enabled, true}.
+
+{eunit_opts, [verbose, {report, {eunit_surefire, [{dir, &quot;.&quot;}]}}]}.
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33642791</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Do Erlang or Elixir do resolve by name in a way that requires &quot;name mangling&quot;?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="elixir" />
+            <category scheme="http://stackoverflow.com/tags" term="name-mangling" />
+        <author>
+            <name>Nathan Basanese</name>
+            <uri>http://stackoverflow.com/users/2146138</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33642791/do-erlang-or-elixir-do-resolve-by-name-in-a-way-that-requires-name-mangling" />
+        <published>2015-11-11T01:28:25Z</published>
+        <updated>2015-11-11T08:44:47Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Does the concept of &quot;arity&quot; solve this problem? &lt;/p&gt;
+
+&lt;p&gt;I had a quick look at &lt;a href=&quot;http://www.erlang.org/doc/man/global.html&quot; rel=&quot;nofollow&quot;&gt;http://www.erlang.org/doc/man/global.html&lt;/a&gt;, but it mostly seems to involve node registration, not resolution by name for functions or atoms. &lt;/p&gt;
+
+&lt;p&gt;Does CosNaming (&lt;a href=&quot;http://www.erlang.org/doc/man/CosNaming_NamingContext.html&quot; rel=&quot;nofollow&quot;&gt;http://www.erlang.org/doc/man/CosNaming_NamingContext.html&lt;/a&gt;) deal with this? &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33645557</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Binary comprenhension on Elixir</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="elixir" />
+        <author>
+            <name>Asier Azkuenaga</name>
+            <uri>http://stackoverflow.com/users/1065399</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33645557/binary-comprenhension-on-elixir" />
+        <published>2015-11-11T06:51:23Z</published>
+        <updated>2015-11-11T07:31:31Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Is it possible and if so, how could I use binary comprehension on Elixir? I can do it on Erlang like so:  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[One || &amp;lt;&amp;lt;One, _rest:3/binary&amp;gt;&amp;gt; &amp;lt;= &amp;lt;&amp;lt;1,2,3,4&amp;gt;&amp;gt;].
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33340517</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Configuring version number in beam file</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>Geek</name>
+            <uri>http://stackoverflow.com/users/4239055</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33340517/configuring-version-number-in-beam-file" />
+        <published>2015-10-26T07:29:16Z</published>
+        <updated>2015-11-11T01:54:30Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;How do I set the version number of a compiled module in Erlang? There&#39;s a version number in each &lt;code&gt;.beam&lt;/code&gt; file, and I am modifying modules in each release of my project. Can I configure this version number in my releases?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33641122</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Oauth2 for google api access in erlang</title>
+            <category scheme="http://stackoverflow.com/tags" term="oauth-2.0" />
+            <category scheme="http://stackoverflow.com/tags" term="google-api" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="grant" />
+        <author>
+            <name>Krishna</name>
+            <uri>http://stackoverflow.com/users/5408524</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33641122/oauth2-for-google-api-access-in-erlang" />
+        <published>2015-11-10T22:47:38Z</published>
+        <updated>2015-11-10T22:47:38Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Hello I am writing code for oauth2 protocol for accessing google pub/sub api&#39;s . My code is as follows.&lt;/p&gt;
+
+&lt;p&gt;Method = post,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;URL = &quot;https://www.googleapis.com/oauth2/v1/userinfo&quot;,
+Grant = &quot;grant_type=authorization_code:params:oauth:grant-type:jwt-bearer&amp;amp;assertion=&amp;amp;
+        assertion=JWT_Token &quot;,
+
+Header = [{&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;}],
+Body = [Grant],
+Type = &quot;application/x-www-form-urlencoded&quot;,
+Options = [],
+httpc:request(Method, {URL, Header, Type, Body}, [], Options).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am getting following error when i send http request    &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Response{ok,{{&quot;HTTP/1.1&quot;,404,&quot;Not Found&quot;},
+          [{&quot;cache-control&quot;,
+            &quot;no-cache, no-store, max-age=0, must-revalidate&quot;},
+           {&quot;date&quot;,&quot;Tue, 10 Nov 2015 22:27:36 GMT&quot;},
+           {&quot;pragma&quot;,&quot;no-cache&quot;},
+           {&quot;accept-ranges&quot;,&quot;none&quot;},
+           {&quot;server&quot;,&quot;GSE&quot;},
+           {&quot;vary&quot;,&quot;X-Origin&quot;},
+           {&quot;content-length&quot;,&quot;9&quot;},
+           {&quot;content-type&quot;,&quot;text/html; charset=UTF-8&quot;},
+           {&quot;expires&quot;,&quot;Fri, 01 Jan 1990 00:00:00 GMT&quot;},
+           {&quot;x-content-type-options&quot;,&quot;nosniff&quot;},
+           {&quot;x-frame-options&quot;,&quot;SAMEORIGIN&quot;},
+           {&quot;x-xss-protection&quot;,&quot;1; mode=block&quot;},
+           {&quot;alternate-protocol&quot;,&quot;443:quic,p=1&quot;},
+           {&quot;alt-svc&quot;,&quot;quic=\&quot;:443\&quot;; p=\&quot;1\&quot;; ma=604800&quot;}],
+          &quot;Not Found&quot;}} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am almost sure the grant value i am sending is not correct.
+I am not sure what parameter to pass in the URL and host parameters.
+ Please help&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33637310</id>
+        <re:rank scheme="http://stackoverflow.com">3</re:rank>
+        <title type="text">What does &quot; # &quot; mean in Erlang?</title>
+            <category scheme="http://stackoverflow.com/tags" term="syntax" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>Мария М</name>
+            <uri>http://stackoverflow.com/users/5547850</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33637310/what-does-mean-in-erlang" />
+        <published>2015-11-10T18:49:30Z</published>
+        <updated>2015-11-10T22:30:24Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;What does &quot;#&quot; mean in Erlang syntax?&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; Request#radius_packet.attrs
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13211875</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Yaws Sample Files</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="yaws" />
+        <author>
+            <name>cgval</name>
+            <uri>http://stackoverflow.com/users/862945</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13211875/yaws-sample-files" />
+        <published>2012-11-03T17:53:39Z</published>
+        <updated>2015-11-10T16:01:55Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am currently trying to understand and find case studies for web pages using YAWS. Apart from the default ones that come with the sources, anyone knows of any sample pages that I can find? &lt;/p&gt;
+
+&lt;p&gt;Thanks,&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33631037</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to beautiful print erlang source code which get from beam?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>BlackMamba</name>
+            <uri>http://stackoverflow.com/users/2223579</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33631037/how-to-beautiful-print-erlang-source-code-which-get-from-beam" />
+        <published>2015-11-10T13:23:29Z</published>
+        <updated>2015-11-10T14:30:47Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I use this code to get the erlang source code from compiled beam file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-spec source(module()) -&amp;gt; iolist().
+source(Module) -&amp;gt;
+    Path = code:which(Module),
+    {ok,{_,[{abstract_code,{_,AC}}]}} = beam_lib:chunks(Path, [abstract_code]),
+    erl_prettypr:format(erl_syntax:form_list(AC)).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;here is the result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;-file(\&quot;src/recon.erl\&quot;, 1).\n\n-module(recon).\n\n-export([info/1, info/2, info/3, info/4, proc_count/2,\n\t proc_window/3, bin_leak/1, node_stats_print/2,\n\t node_stats_list/2, node_stats/4, scheduler_usage/1]).\n\n-export([get_state/1, get_state/2]).\n\n-export([remote_load/1, remote_load/2, source/1]).\n\n-export([tcp/0, udp/0, sctp/0, files/0, port_types/0,\n\t inet_count/2, inet_window/3, port_info/1, port_info/2]).\n\n-export([rpc/1, rpc/2, rpc/3, named_rpc/1, named_rpc/2,\n\t named_rpc/3]).\n\n-type({proc_attrs,\n       {type, 98, tuple,\n\t[{type, 98, pid, []},\n\t {ann_type, 99, [{var, 99, &#39;Attr&#39;}, {var, 99, &#39;_&#39;}]},\n\t {type, 100, nonempty_list,\n\t  [{ann_type, 100,\n\t    [{var, 100, &#39;Name&#39;},\n\t     {type, 100, union,\n\t      [{type, 100, atom, []},\n\t       {type, 101, tuple,\n\t\t[{atom, 101, current_function}, {type, 101, mfa, []}]},\n\t       {type, 102, tuple,\n\t\t[{atom, 102, initial_call},\n\t\t {type, 102, mfa, []}]}]}]}]}]},\n       []}).\n\n-type({inet_attrs,\n       {type, 104, tuple,\n\t[{type, 104, port, []},\n\t {ann_type, 105, [{var, 105, &#39;Attr&#39;}, {var, 105, &#39;_&#39;}]},\n\t {type, 106, list,\n\t  [{type, 106, tuple,\n\t    [{type, 106, atom, []}, {type, 106, term, []}]}]}]},\n       []}).\n\n-type({pid_term,\n       {type, 108, union,\n\t[{type, 108, pid, []}, {type, 108, atom, []},\n\t {type, 108, string, []},\n\t {type, 109, tuple,\n\t  [{atom, 109, global}, {type, 109, term, []}]},\n\t {type, 109, tuple,\n\t  [{atom, 109, via}, {type, 109, module, []},\n\t   {type, 109, term, []}]},\n\t {type, 110, tuple,\n\t  [{type, 110, non_neg_integer, []},\n\t   {type, 110, non_neg_integer, []},\n\t   {type, 110, non_neg_integer, []}]}]},\n       []}).\n\n-type({info_type,\n       {type, 112, union,\n\t[{atom, 112, meta}, {atom, 112, signals},\n\t {atom, 112, location}, {atom, 112, memory_used},\n\t {atom, 112, work}]},\n       []}).\n\n-type({info_meta_key,\n       {type, 114, union,\n\t[{atom, 114, registered_name}, {atom, 114, dictionary},\n\t {atom, 114, group_leader}, {atom, 114, status}]},\n       []}).\n\n-type({info_signals_key,\n       {type, 115, union,\n\t[{atom, 115, links}, {atom, 115, monitors},\n\t {atom, 115, monitored_by}, {atom, 115, trap_exit}]},\n       []}).\n\n-type({info_location_key,\n       {type, 116, union,\n\t[{atom, 116, initial_call},\n\t {atom, 116, current_stacktrace}]},\n       []}).\n\n-type({info_memory_key,\n       {type, 117, union,\n\t[{atom, 117, memory}, {atom, 117, message_queue_len},\n\t {atom, 117, heap_size}, {atom, 118, total_heap_size},\n\t {atom, 118, garbage_collection}]},\n       []}).\n\n-type({info_work_key, {atom, 119, reductions}, []}).\n\n-type({info_key,\n       {type, 121, union,\n\t[{user_type, 121, info_meta_key, []},\n\t {user_type, 121, info_signals_key, []},\n\t {user_type, 121, info_location_key, []},\n\t {user_type, 122, info_memory_key, []},\n\t {user_type, 122, info_work_key, []}]},\n       []}).\n\n-type({port_term,\n       {type, 124, union,\n\t[{type, 124, port, []}, {type, 124, string, []},\n\t {type, 124, atom, []}, {type, 124, pos_integer, []}]},\n       []}).\n\n-type({port_info_type,\n       {type, 126, union,\n\t[{atom, 126, meta}, {atom, 126, signals},\n\t {atom, 126, io}, {atom, 126, memory_used},\n\t {atom, 126, specific}]},\n       []}).\n\n-type({port_info_meta_key,\n       {type, 128, union,\n\t[{atom, 128, registered_name}, {atom, 128, id},\n\t {atom, 128, name}, {atom, 128, os_pid}]},\n       []}).\n\n-type({port_info_signals_key,\n       {type, 129, union,\n\t[{atom, 129, connected}, {atom, 129, links},\n\t {atom, 129, monitors}]},\n       []}).\n\n-type({port_info_io_key,\n       {type, 130, union,\n\t[{atom, 130, input}, {atom, 130, output}]},\n       []}).\n\n-type({port_info_memory_key,\n       {type, 131, union,\n\t[{atom, 131, memory}, {atom, 131, queue_size}]},\n       []}).\n\n-type({port_info_specific_key, {type, 132, atom, []},\n       []}).\n\n-type({port_info_key,\n       {type, 134, union,\n\t[{user_type, 134, port_info_meta_key, []},\n\t {user_type, 134, port_info_signals_key, []},\n\t {user_type, 135, port_info_io_key, []},\n\t {user_type, 135, port_info_memory_key, []},\n\t {user_type, 136, port_info_specific_key, []}]},\n       []}).\n\n-export_type([{proc_attrs, 0}, {inet_attrs, 0},\n\t      {pid_term, 0}, {port_term, 0}]).\n\n-export_type([{info_type, 0}, {info_key, 0},\n\t      {info_meta_key, 0}, {info_signals_key, 0},\n\t      {info_location_key, 0}, {info_memory_key, 0},\n\t      {info_work_key, 0}]).\n\n-export_type([{port_info_type, 0}, {port_info_key, 0},\n\t      {port_info_meta_key, 0}, {port_info_signals_key, 0},\n\t      {port_info_io_key, 0}, {port_info_memory_key, 0},\n\t      {port_info_specific_key, 0}]).\n\n-spec({{info, 3},\n       [{type, 154, bounded_fun,\n\t [{type, 154, &#39;fun&#39;,\n\t   [{type, 154, product,\n\t     [{var, 154, &#39;N&#39;}, {var, 154, &#39;N&#39;}, {var, 154, &#39;N&#39;}]},\n\t    {type, 154, nonempty_list,\n\t     [{type, 154, tuple,\n\t       [{user_type, 154, info_type, []},\n\t\t{type, 154, list,\n\t\t [{type, 154, tuple,\n\t\t   [{user_type, 154, info_key, []},\n\t\t    {type, 154, term, []}]}]}]}]}]},\n\t  [{type, 155, constraint,\n\t    [{atom, 155, is_subtype},\n\t     [{var, 155, &#39;N&#39;},\n\t      {type, 155, non_neg_integer, []}]]}]]}]}).\n\ninfo(A, B, C) -&amp;gt; info(recon_lib:triple_to_pid(A, B, C)).\n\n-spec({{info, 4},\n       [{type, 160, bounded_fun,\n\t [{type, 160, &#39;fun&#39;,\n\t   [{type, 160, product,\n\t     [{var, 160, &#39;N&#39;}, {var, 160, &#39;N&#39;}, {var, 160, &#39;N&#39;},\n\t      {var, 160, &#39;Key&#39;}]},\n\t    {type, 160, term, []}]},\n\t  [{type, 161, constraint,\n\t    [{atom, 161, is_subtype},\n\t     [{var, 161, &#39;N&#39;}, {type, 161, non_neg_integer, []}]]},\n\t   {type, 162, constraint,\n\t    [{atom, 162, is_subtype},\n\t     [{var, 162, &#39;Key&#39;},\n\t      {type, 162, union,\n\t       [{user_type, 162, info_type, []},\n\t\t{type, 162, list, [{type, 162, atom, []}]},\n\t\t{type, 162, atom, []}]}]]}]]}]}).\n\ninfo(A, B, C, Key) -&amp;gt;\n    info(recon_lib:triple_to_pid(A, B, C), Key).\n\n-spec({{info, 1},\n       [{type, 177, bounded_fun,\n\t [{type, 177, &#39;fun&#39;,\n\t   [{type, 177, product, [{user_type, 177, pid_term, []}]},\n\t    {type, 177, nonempty_list,\n\t     [{type, 177, tuple,\n\t       [{user_type, 177, info_type, []},\n\t\t{type, 177, list,\n\t\t [{type, 177, tuple,\n\t\t   [{user_type, 177, info_key, []},\n\t\t    {var, 177, &#39;Value&#39;}]}]}]}]}]},\n\t  [{type, 178, constraint,\n\t    [{atom, 178, is_subtype},\n\t     [{var, 178, &#39;Value&#39;}, {type, 178, term, []}]]}]]}]}).\n\ninfo(PidTerm) -&amp;gt;\n    Pid = recon_lib:term_to_pid(PidTerm),\n    [info(Pid, Type)\n     || Type\n\t    &amp;lt;- [meta, signals, location, memory_used, work]].\n\n-spec({{info, 2},\n       [{type, 200, &#39;fun&#39;,\n\t [{type, 200, product,\n\t   [{user_type, 200, pid_term, []},\n\t    {user_type, 200, info_type, []}]},\n\t  {type, 200, tuple,\n\t   [{user_type, 200, info_type, []},\n\t    {type, 200, list,\n\t     [{type, 200, tuple,\n\t       [{user_type, 200, info_key, []},\n\t\t{type, 200, term, []}]}]}]}]},\n\t{type, 201, &#39;fun&#39;,\n\t [{type, 201, product,\n\t   [{user_type, 201, pid_term, []},\n\t    {type, 201, list, [{type, 201, atom, []}]}]},\n\t  {type, 201, list,\n\t   [{type, 201, tuple,\n\t     [{type, 201, atom, []}, {type, 201, term, []}]}]}]},\n\t{type, 202, &#39;fun&#39;,\n\t [{type, 202, product,\n\t   [{user_type, 202, pid_term, []},\n\t    {type, 202, atom, []}]},\n\t  {type, 202, tuple,\n\t   [{type, 202, atom, []}, {type, 202, term, []}]}]}]}).\n\ninfo(PidTerm, meta) -&amp;gt;\n    info_type(PidTerm, meta,\n\t      [registered_name, dictionary, group_leader, status]);\ninfo(PidTerm, signals) -&amp;gt;\n    info_type(PidTerm, signals,\n\t      [links, monitors, monitored_by, trap_exit]);\ninfo(PidTerm, location) -&amp;gt;\n    info_type(PidTerm, location,\n\t      [initial_call, current_stacktrace]);\ninfo(PidTerm, memory_used) -&amp;gt;\n    info_type(PidTerm, memory_used,\n\t      [memory, message_queue_len, heap_size, total_heap_size,\n\t       garbage_collection]);\ninfo(PidTerm, work) -&amp;gt;\n    info_type(PidTerm, work, [reductions]);\ninfo(PidTerm, Keys) -&amp;gt;\n    proc_info(recon_lib:term_to_pid(PidTerm), Keys).\n\n-spec({{info_type, 3},\n       [{type, 219, &#39;fun&#39;,\n\t [{type, 219, product,\n\t   [{user_type, 219, pid_term, []},\n\t    {user_type, 219, info_type, []},\n\t    {type, 219, list, [{user_type, 219, info_key, []}]}]},\n\t  {type, 220, tuple,\n\t   [{user_type, 220, info_type, []},\n\t    {type, 220, list,\n\t     [{type, 220, tuple,\n\t       [{user_type, 220, info_key, []},\n\t\t{type, 220, term, []}]}]}]}]}]}).\n\ninfo_type(PidTerm, Type, Keys) -&amp;gt;\n    Pid = recon_lib:term_to_pid(PidTerm),\n    {Type, proc_info(Pid, Keys)}.\n\nproc_info(Pid, binary_memory) -&amp;gt;\n    {binary, Bins} = erlang:process_info(Pid, binary),\n    {binary_memory, recon_lib:binary_memory(Bins)};\nproc_info(Pid, Term) when is_atom(Term) -&amp;gt;\n    erlang:process_info(Pid, Term);\nproc_info(Pid, List) when is_list(List) -&amp;gt;\n    case lists:member(binary_memory, List) of\n      false -&amp;gt; erlang:process_info(Pid, List);\n      true -&amp;gt;\n\t  Res = erlang:process_info(Pid,\n\t\t\t\t    replace(binary_memory, binary, List)),\n\t  proc_fake(List, Res)\n    end.\n\nreplace(_, _, []) -&amp;gt; [];\nreplace(H, Val, [H | T]) -&amp;gt; [Val | replace(H, Val, T)];\nreplace(R, Val, [H | T]) -&amp;gt; [H | replace(R, Val, T)].\n\nproc_fake([], []) -&amp;gt; [];\nproc_fake([binary_memory | T1],\n\t  [{binary, Bins} | T2]) -&amp;gt;\n    [{binary_memory, recon_lib:binary_memory(Bins)}\n     | proc_fake(T1, T2)];\nproc_fake([_ | T1], [H | T2]) -&amp;gt;\n    [H | proc_fake(T1, T2)].\n\n-spec({{proc_count, 2},\n       [{type, 259, bounded_fun,\n\t [{type, 259, &#39;fun&#39;,\n\t   [{type, 259, product,\n\t     [{var, 259, &#39;AttributeName&#39;}, {var, 259, &#39;Num&#39;}]},\n\t    {type, 259, list, [{user_type, 259, proc_attrs, []}]}]},\n\t  [{type, 260, constraint,\n\t    [{atom, 260, is_subtype},\n\t     [{var, 260, &#39;AttributeName&#39;}, {type, 260, atom, []}]]},\n\t   {type, 261, constraint,\n\t    [{atom, 261, is_subtype},\n\t     [{var, 261, &#39;Num&#39;},\n\t      {type, 261, non_neg_integer, []}]]}]]}]}).\n\nproc_count(AttrName, Num) -&amp;gt;\n    lists:sublist(lists:usort(fun ({_, A, _}, {_, B, _}) -&amp;gt;\n\t\t\t\t      A &amp;gt; B\n\t\t\t      end,\n\t\t\t      recon_lib:proc_attrs(AttrName)),\n\t\t  Num).\n\n-spec({{proc_window, 3},\n       [{type, 293, bounded_fun,\n\t [{type, 293, &#39;fun&#39;,\n\t   [{type, 293, product,\n\t     [{var, 293, &#39;AttributeName&#39;}, {var, 293, &#39;Num&#39;},\n\t      {var, 293, &#39;Milliseconds&#39;}]},\n\t    {type, 293, list, [{user_type, 293, proc_attrs, []}]}]},\n\t  [{type, 294, constraint,\n\t    [{atom, 294, is_subtype},\n\t     [{var, 294, &#39;AttributeName&#39;}, {type, 294, atom, []}]]},\n\t   {type, 295, constraint,\n\t    [{atom, 295, is_subtype},\n\t     [{var, 295, &#39;Num&#39;}, {type, 295, non_neg_integer, []}]]},\n\t   {type, 296, constraint,\n\t    [{atom, 296, is_subtype},\n\t     [{var, 296, &#39;Milliseconds&#39;},\n\t      {type, 296, pos_integer, []}]]}]]}]}).\n\nproc_window(AttrName, Num, Time) -&amp;gt;\n    Sample = fun () -&amp;gt; recon_lib:proc_attrs(AttrName) end,\n    {First, Last} = recon_lib:sample(Time, Sample),\n    lists:sublist(lists:usort(fun ({_, A, _}, {_, B, _}) -&amp;gt;\n\t\t\t\t      A &amp;gt; B\n\t\t\t      end,\n\t\t\t      recon_lib:sliding_window(First, Last)),\n\t\t  Num).\n\n-spec({{bin_leak, 1},\n       [{type, 318, &#39;fun&#39;,\n\t [{type, 318, product, [{type, 318, pos_integer, []}]},\n\t  {type, 318, list,\n\t   [{user_type, 318, proc_attrs, []}]}]}]}).\n\nbin_leak(N) -&amp;gt;\n    lists:sublist(lists:usort(fun ({K1, V1, _},\n\t\t\t\t   {K2, V2, _}) -&amp;gt;\n\t\t\t\t      {V1, K1} =&amp;lt; {V2, K2}\n\t\t\t      end,\n\t\t\t      [try {ok, {_, Pre, Id}} =\n\t\t\t\t       recon_lib:proc_attrs(binary, Pid),\n\t\t\t\t   erlang:garbage_collect(Pid),\n\t\t\t\t   {ok, {_, Post, _}} =\n\t\t\t\t       recon_lib:proc_attrs(binary, Pid),\n\t\t\t\t   {Pid, length(Post) - length(Pre), Id}\n\t\t\t       catch\n\t\t\t\t _:_ -&amp;gt; {Pid, 0, []}\n\t\t\t       end\n\t\t\t       || Pid &amp;lt;- processes()]),\n\t\t  N).\n\n-spec({{node_stats_print, 2},\n       [{type, 334, bounded_fun,\n\t [{type, 334, &#39;fun&#39;,\n\t   [{type, 334, product,\n\t     [{var, 334, &#39;Repeat&#39;}, {var, 334, &#39;Interval&#39;}]},\n\t    {type, 334, term, []}]},\n\t  [{type, 335, constraint,\n\t    [{atom, 335, is_subtype},\n\t     [{var, 335, &#39;Repeat&#39;},\n\t      {type, 335, non_neg_integer, []}]]},\n\t   {type, 336, constraint,\n\t    [{atom, 336, is_subtype},\n\t     [{var, 336, &#39;Interval&#39;},\n\t      {type, 336, pos_integer, []}]]}]]}]}).\n\nnode_stats_print(N, Interval) -&amp;gt;\n    node_stats(N, Interval,\n\t       fun (X, _) -&amp;gt; io:format(\&quot;~p~n\&quot;, [X]) end, ok).\n\n-spec({{scheduler_usage, 1},\n       [{type, 358, bounded_fun,\n\t [{type, 358, &#39;fun&#39;,\n\t   [{type, 358, product, [{var, 358, &#39;Millisecs&#39;}]},\n\t    {type, 358, list,\n\t     [{type, 358, tuple,\n\t       [{var, 358, &#39;SchedulerId&#39;}, {var, 358, &#39;Usage&#39;}]}]}]},\n\t  [{type, 359, constraint,\n\t    [{atom, 359, is_subtype},\n\t     [{var, 359, &#39;Millisecs&#39;},\n\t      {type, 359, non_neg_integer, []}]]},\n\t   {type, 360, constraint,\n\t    [{atom, 360, is_subtype},\n\t     [{var, 360, &#39;SchedulerId&#39;},\n\t      {type, 360, pos_integer, []}]]},\n\t   {type, 361, constraint,\n\t    [{atom, 361, is_subtype},\n\t     [{var, 361, &#39;Usage&#39;}, {type, 361, number, []}]]}]]}]}).\n\nscheduler_usage(Interval) when is_integer(Interval) -&amp;gt;\n    FormerFlag = erlang:system_flag(scheduler_wall_time,\n\t\t\t\t    true),\n    First = erlang:statistics(scheduler_wall_time),\n    timer:sleep(Interval),\n    Last = erlang:statistics(scheduler_wall_time),\n    erlang:system_flag(scheduler_wall_time, FormerFlag),\n    recon_lib:scheduler_usage_diff(First, Last).\n\n-spec({{node_stats_list, 2},\n       [{type, 375, bounded_fun,\n\t [{type, 375, &#39;fun&#39;,\n\t   [{type, 375, product,\n\t     [{var, 375, &#39;Repeat&#39;}, {var, 375, &#39;Interval&#39;}]},\n\t    {type, 375, list, [{var, 375, &#39;Stats&#39;}]}]},\n\t  [{type, 376, constraint,\n\t    [{atom, 376, is_subtype},\n\t     [{var, 376, &#39;Repeat&#39;},\n\t      {type, 376, non_neg_integer, []}]]},\n\t   {type, 377, constraint,\n\t    [{atom, 377, is_subtype},\n\t     [{var, 377, &#39;Interval&#39;},\n\t      {type, 377, pos_integer, []}]]},\n\t   {type, 378, constraint,\n\t    [{atom, 378, is_subtype},\n\t     [{var, 378, &#39;Stats&#39;},\n\t      {type, 378, tuple,\n\t       [{type, 378, list,\n\t\t [{ann_type, 378,\n\t\t   [{var, 378, &#39;Absolutes&#39;},\n\t\t    {type, 378, tuple,\n\t\t     [{type, 378, atom, []}, {type, 378, term, []}]}]}]},\n\t\t{type, 379, list,\n\t\t [{ann_type, 379,\n\t\t   [{var, 379, &#39;Increments&#39;},\n\t\t    {type, 379, tuple,\n\t\t     [{type, 379, atom, []},\n\t\t      {type, 379, term, []}]}]}]}]}]]}]]}]}).\n\nnode_stats_list(N, Interval) -&amp;gt;\n    lists:reverse(node_stats(N, Interval,\n\t\t\t     fun (X, Acc) -&amp;gt; [X | Acc] end, [])).\n\n-spec({{node_stats, 4},\n       [{type, 397, bounded_fun,\n\t [{type, 397, &#39;fun&#39;,\n\t   [{type, 397, product,\n\t     [{var, 397, &#39;N&#39;}, {var, 397, &#39;Interval&#39;},\n\t      {var, 397, &#39;FoldFun&#39;}, {var, 397, &#39;Acc&#39;}]},\n\t    {var, 397, &#39;Acc&#39;}]},\n\t  [{type, 398, constraint,\n\t    [{atom, 398, is_subtype},\n\t     [{var, 398, &#39;N&#39;}, {type, 398, non_neg_integer, []}]]},\n\t   {type, 399, constraint,\n\t    [{atom, 399, is_subtype},\n\t     [{var, 399, &#39;Interval&#39;},\n\t      {type, 399, pos_integer, []}]]},\n\t   {type, 400, constraint,\n\t    [{atom, 400, is_subtype},\n\t     [{var, 400, &#39;FoldFun&#39;},\n\t      {type, 400, &#39;fun&#39;,\n\t       [{type, 400, product,\n\t\t [{var, 400, &#39;Stats&#39;}, {var, 400, &#39;Acc&#39;}]},\n\t\t{var, 400, &#39;Acc&#39;}]}]]},\n\t   {type, 401, constraint,\n\t    [{atom, 401, is_subtype},\n\t     [{var, 401, &#39;Acc&#39;}, {type, 401, term, []}]]},\n\t   {type, 402, constraint,\n\t    [{atom, 402, is_subtype},\n\t     [{var, 402, &#39;Stats&#39;},\n\t      {type, 402, tuple,\n\t       [{type, 402, list,\n\t\t [{ann_type, 402,\n\t\t   [{var, 402, &#39;Absolutes&#39;},\n\t\t    {type, 402, tuple,\n\t\t     [{type, 402, atom, []}, {type, 402, term, []}]}]}]},\n\t\t{type, 403, list,\n\t\t [{ann_type, 403,\n\t\t   [{var, 403, &#39;Increments&#39;},\n\t\t    {type, 403, tuple,\n\t\t     [{type, 403, atom, []},\n\t\t      {type, 403, term, []}]}]}]}]}]]}]]}]}).\n\nnode_stats(N, Interval, FoldFun, Init) -&amp;gt;\n    FormerFlag = erlang:system_flag(scheduler_wall_time,\n\t\t\t\t    true),\n    Stats = fun ({{OldIn, OldOut}, {OldGCs, OldWords, _},\n\t\t  SchedWall}) -&amp;gt;\n\t\t    ProcC = erlang:system_info(process_count),\n\t\t    RunQ = erlang:statistics(run_queue),\n\t\t    {_, LogQ} = process_info(whereis(error_logger),\n\t\t\t\t\t     message_queue_len),\n\t\t    Mem = erlang:memory(),\n\t\t    Tot = proplists:get_value(total, Mem),\n\t\t    ProcM = proplists:get_value(processes_used, Mem),\n\t\t    Atom = proplists:get_value(atom_used, Mem),\n\t\t    Bin = proplists:get_value(binary, Mem),\n\t\t    Ets = proplists:get_value(ets, Mem),\n\t\t    {{input, In}, {output, Out}} = erlang:statistics(io),\n\t\t    GC = {GCs, Words, _} =\n\t\t\t     erlang:statistics(garbage_collection),\n\t\t    BytesIn = In - OldIn,\n\t\t    BytesOut = Out - OldOut,\n\t\t    GCCount = GCs - OldGCs,\n\t\t    GCWords = Words - OldWords,\n\t\t    {_, Reds} = erlang:statistics(reductions),\n\t\t    SchedWallNew = erlang:statistics(scheduler_wall_time),\n\t\t    SchedUsage = recon_lib:scheduler_usage_diff(SchedWall,\n\t\t\t\t\t\t\t\tSchedWallNew),\n\t\t    {{[{process_count, ProcC}, {run_queue, RunQ},\n\t\t       {error_logger_queue_len, LogQ}, {memory_total, Tot},\n\t\t       {memory_procs, ProcM}, {memory_atoms, Atom},\n\t\t       {memory_bin, Bin}, {memory_ets, Ets}],\n\t\t      [{bytes_in, BytesIn}, {bytes_out, BytesOut},\n\t\t       {gc_count, GCCount}, {gc_words_reclaimed, GCWords},\n\t\t       {reductions, Reds}, {scheduler_usage, SchedUsage}]},\n\t\t     {{In, Out}, GC, SchedWallNew}}\n\t    end,\n    {{input, In}, {output, Out}} = erlang:statistics(io),\n    Gc = erlang:statistics(garbage_collection),\n    SchedWall = erlang:statistics(scheduler_wall_time),\n    Result = recon_lib:time_fold(N, Interval, Stats,\n\t\t\t\t {{In, Out}, Gc, SchedWall}, FoldFun, Init),\n    erlang:system_flag(scheduler_wall_time, FormerFlag),\n    Result.\n\n-spec({{get_state, 1},\n       [{type, 456, &#39;fun&#39;,\n\t [{type, 456, product, [{user_type, 456, pid_term, []}]},\n\t  {type, 456, term, []}]}]}).\n\nget_state(PidTerm) -&amp;gt; get_state(PidTerm, 5000).\n\n-spec({{get_state, 2},\n       [{type, 462, &#39;fun&#39;,\n\t [{type, 462, product,\n\t   [{user_type, 462, pid_term, []},\n\t    {ann_type, 462,\n\t     [{var, 462, &#39;Ms&#39;},\n\t      {type, 462, union,\n\t       [{type, 462, non_neg_integer, []},\n\t\t{atom, 462, infinity}]}]}]},\n\t  {type, 462, term, []}]}]}).\n\nget_state(PidTerm, Timeout) -&amp;gt;\n    Proc = recon_lib:term_to_pid(PidTerm),\n    try sys:get_state(Proc, Timeout) catch\n      error:undef -&amp;gt;\n\t  case sys:get_status(Proc, Timeout) of\n\t    {status, _Pid, {module, gen_server}, Data} -&amp;gt;\n\t\t{data, Props} = lists:last(lists:nth(5, Data)),\n\t\tproplists:get_value(\&quot;State\&quot;, Props);\n\t    {status, _Pod, {module, gen_fsm}, Data} -&amp;gt;\n\t\t{data, Props} = lists:last(lists:nth(5, Data)),\n\t\tproplists:get_value(\&quot;StateData\&quot;, Props)\n\t  end\n    end.\n\n-spec({{remote_load, 1},\n       [{type, 482, &#39;fun&#39;,\n\t [{type, 482, product, [{type, 482, module, []}]},\n\t  {type, 482, term, []}]}]}).\n\nremote_load(Mod) -&amp;gt; remote_load(nodes(), Mod).\n\n-spec({{remote_load, 2},\n       [{type, 487, bounded_fun,\n\t [{type, 487, &#39;fun&#39;,\n\t   [{type, 487, product,\n\t     [{var, 487, &#39;Nodes&#39;}, {type, 487, module, []}]},\n\t    {type, 487, term, []}]},\n\t  [{type, 488, constraint,\n\t    [{atom, 488, is_subtype},\n\t     [{var, 488, &#39;Nodes&#39;},\n\t      {type, 488, union,\n\t       [{type, 488, nonempty_list, [{type, 488, node, []}]},\n\t\t{type, 488, node, []}]}]]}]]}]}).\n\nremote_load(Nodes = [_ | _], Mod) when is_atom(Mod) -&amp;gt;\n    {Mod, Bin, File} = code:get_object_code(Mod),\n    rpc:multicall(Nodes, code, load_binary,\n\t\t  [Mod, File, Bin]);\nremote_load(Nodes = [_ | _], Modules)\n    when is_list(Modules) -&amp;gt;\n    [remote_load(Nodes, Mod) || Mod &amp;lt;- Modules];\nremote_load(Node, Mod) -&amp;gt; remote_load([Node], Mod).\n\n-spec({{source, 1},\n       [{type, 503, &#39;fun&#39;,\n\t [{type, 503, product, [{type, 503, module, []}]},\n\t  {type, 503, iolist, []}]}]}).\n\nsource(Module) -&amp;gt;\n    Path = code:which(Module),\n    {ok, {_, [{abstract_code, {_, AC}}]}} =\n\tbeam_lib:chunks(Path, [abstract_code]),\n    erl_prettypr:format(erl_syntax:form_list(AC)).\n\n-spec({{tcp, 0},\n       [{type, 512, &#39;fun&#39;,\n\t [{type, 512, product, []},\n\t  {type, 512, list, [{type, 512, port, []}]}]}]}).\n\ntcp() -&amp;gt; recon_lib:port_list(name, \&quot;tcp_inet\&quot;).\n\n-spec({{udp, 0},\n       [{type, 516, &#39;fun&#39;,\n\t [{type, 516, product, []},\n\t  {type, 516, list, [{type, 516, port, []}]}]}]}).\n\nudp() -&amp;gt; recon_lib:port_list(name, \&quot;udp_inet\&quot;).\n\n-spec({{sctp, 0},\n       [{type, 520, &#39;fun&#39;,\n\t [{type, 520, product, []},\n\t  {type, 520, list, [{type, 520, port, []}]}]}]}).\n\nsctp() -&amp;gt; recon_lib:port_list(name, \&quot;sctp_inet\&quot;).\n\n-spec({{files, 0},\n       [{type, 524, &#39;fun&#39;,\n\t [{type, 524, product, []},\n\t  {type, 524, list, [{type, 524, port, []}]}]}]}).\n\nfiles() -&amp;gt; recon_lib:port_list(name, \&quot;efile\&quot;).\n\n-spec({{port_types, 0},\n       [{type, 529, &#39;fun&#39;,\n\t [{type, 529, product, []},\n\t  {type, 529, list,\n\t   [{type, 529, tuple,\n\t     [{ann_type, 529,\n\t       [{var, 529, &#39;Type&#39;}, {type, 529, string, []}]},\n\t      {ann_type, 529,\n\t       [{var, 529, &#39;Count&#39;},\n\t\t{type, 529, pos_integer, []}]}]}]}]}]}).\n\nport_types() -&amp;gt;\n    lists:usort(fun ({KA, VA}, {KB, VB}) -&amp;gt;\n\t\t\t{VA, KB} &amp;gt; {VB, KA}\n\t\tend,\n\t\trecon_lib:count([Name\n\t\t\t\t || {_, Name} &amp;lt;- recon_lib:port_list(name)])).\n\n-spec({{inet_count, 2},\n       [{type, 549, bounded_fun,\n\t [{type, 549, &#39;fun&#39;,\n\t   [{type, 549, product,\n\t     [{var, 549, &#39;AttributeName&#39;}, {var, 549, &#39;Num&#39;}]},\n\t    {type, 549, list, [{user_type, 549, inet_attrs, []}]}]},\n\t  [{type, 550, constraint,\n\t    [{atom, 550, is_subtype},\n\t     [{var, 550, &#39;AttributeName&#39;},\n\t      {type, 550, union,\n\t       [{atom, 550, recv_cnt}, {atom, 550, recv_oct},\n\t\t{atom, 550, send_cnt}, {atom, 550, send_oct},\n\t\t{atom, 551, cnt}, {atom, 551, oct}]}]]},\n\t   {type, 552, constraint,\n\t    [{atom, 552, is_subtype},\n\t     [{var, 552, &#39;Num&#39;},\n\t      {type, 552, non_neg_integer, []}]]}]]}]}).\n\ninet_count(Attr, Num) -&amp;gt;\n    lists:sublist(lists:usort(fun ({_, A, _}, {_, B, _}) -&amp;gt;\n\t\t\t\t      A &amp;gt; B\n\t\t\t      end,\n\t\t\t      recon_lib:inet_attrs(Attr)),\n\t\t  Num).\n\n-spec({{inet_window, 3},\n       [{type, 571, bounded_fun,\n\t [{type, 571, &#39;fun&#39;,\n\t   [{type, 571, product,\n\t     [{var, 571, &#39;AttributeName&#39;}, {var, 571, &#39;Num&#39;},\n\t      {var, 571, &#39;Milliseconds&#39;}]},\n\t    {type, 571, list, [{user_type, 571, inet_attrs, []}]}]},\n\t  [{type, 572, constraint,\n\t    [{atom, 572, is_subtype},\n\t     [{var, 572, &#39;AttributeName&#39;},\n\t      {type, 572, union,\n\t       [{atom, 572, recv_cnt}, {atom, 572, recv_oct},\n\t\t{atom, 572, send_cnt}, {atom, 572, send_oct},\n\t\t{atom, 573, cnt}, {atom, 573, oct}]}]]},\n\t   {type, 574, constraint,\n\t    [{atom, 574, is_subtype},\n\t     [{var, 574, &#39;Num&#39;}, {type, 574, non_neg_integer, []}]]},\n\t   {type, 575, constraint,\n\t    [{atom, 575, is_subtype},\n\t     [{var, 575, &#39;Milliseconds&#39;},\n\t      {type, 575, pos_integer, []}]]}]]}]}).\n\ninet_window(Attr, Num, Time) when is_atom(Attr) -&amp;gt;\n    Sample = fun () -&amp;gt; recon_lib:inet_attrs(Attr) end,\n    {First, Last} = recon_lib:sample(Time, Sample),\n    lists:sublist(lists:usort(fun ({_, A, _}, {_, B, _}) -&amp;gt;\n\t\t\t\t      A &amp;gt; B\n\t\t\t      end,\n\t\t\t      recon_lib:sliding_window(First, Last)),\n\t\t  Num).\n\n-spec({{port_info, 1},\n       [{type, 597, &#39;fun&#39;,\n\t [{type, 597, product,\n\t   [{user_type, 597, port_term, []}]},\n\t  {type, 597, nonempty_list,\n\t   [{type, 597, tuple,\n\t     [{user_type, 597, port_info_type, []},\n\t      {type, 598, list,\n\t       [{type, 598, tuple,\n\t\t [{user_type, 598, port_info_key, []},\n\t\t  {type, 598, term, []}]}]}]}]}]}]}).\n\nport_info(PortTerm) -&amp;gt;\n    Port = recon_lib:term_to_port(PortTerm),\n    [port_info(Port, Type)\n     || Type &amp;lt;- [meta, signals, io, memory_used, specific]].\n\n-spec({{port_info, 2},\n       [{type, 614, &#39;fun&#39;,\n\t [{type, 614, product,\n\t   [{user_type, 614, port_term, []},\n\t    {user_type, 614, port_info_type, []}]},\n\t  {type, 614, tuple,\n\t   [{user_type, 614, port_info_type, []},\n\t    {type, 615, list,\n\t     [{type, 615, tuple,\n\t       [{user_type, 615, port_info_key, []},\n\t\t{var, 615, &#39;_&#39;}]}]}]}]},\n\t{type, 616, &#39;fun&#39;,\n\t [{type, 616, product,\n\t   [{user_type, 616, port_term, []},\n\t    {type, 616, list, [{type, 616, atom, []}]}]},\n\t  {type, 616, list,\n\t   [{type, 616, tuple,\n\t     [{type, 616, atom, []}, {type, 616, term, []}]}]}]},\n\t{type, 617, &#39;fun&#39;,\n\t [{type, 617, product,\n\t   [{user_type, 617, port_term, []},\n\t    {type, 617, atom, []}]},\n\t  {type, 617, tuple,\n\t   [{type, 617, atom, []}, {type, 617, term, []}]}]}]}).\n\nport_info(PortTerm, meta) -&amp;gt;\n    {meta, List} = port_info_type(PortTerm, meta,\n\t\t\t\t  [id, name, os_pid]),\n    case port_info(PortTerm, registered_name) of\n      [] -&amp;gt; {meta, List};\n      Name -&amp;gt; {meta, [Name | List]}\n    end;\nport_info(PortTerm, signals) -&amp;gt;\n    port_info_type(PortTerm, signals,\n\t\t   [connected, links, monitors]);\nport_info(PortTerm, io) -&amp;gt;\n    port_info_type(PortTerm, io, [input, output]);\nport_info(PortTerm, memory_used) -&amp;gt;\n    port_info_type(PortTerm, memory_used,\n\t\t   [memory, queue_size]);\nport_info(PortTerm, specific) -&amp;gt;\n    Port = recon_lib:term_to_port(PortTerm),\n    Props = case erlang:port_info(Port, name) of\n\t      {_, Type}\n\t\t  when Type =:= \&quot;udp_inet\&quot;;\n\t\t       Type =:= \&quot;tcp_inet\&quot;;\n\t\t       Type =:= \&quot;sctp_inet\&quot; -&amp;gt;\n\t\t  case inet:getstat(Port) of\n\t\t    {ok, Stats} -&amp;gt; [{statistics, Stats}];\n\t\t    _ -&amp;gt; []\n\t\t  end\n\t\t    ++\n\t\t    case inet:peername(Port) of\n\t\t      {ok, Peer} -&amp;gt; [{peername, Peer}];\n\t\t      {error, _} -&amp;gt; []\n\t\t    end\n\t\t      ++\n\t\t      case inet:sockname(Port) of\n\t\t\t{ok, Local} -&amp;gt; [{sockname, Local}];\n\t\t\t{error, _} -&amp;gt; []\n\t\t      end\n\t\t\t++\n\t\t\tcase inet:getopts(Port,\n\t\t\t\t\t  [active, broadcast, buffer,\n\t\t\t\t\t   delay_send, dontroute, exit_on_close,\n\t\t\t\t\t   header, high_watermark, ipv6_v6only,\n\t\t\t\t\t   keepalive, linger, low_watermark,\n\t\t\t\t\t   mode, nodelay, packet, packet_size,\n\t\t\t\t\t   priority, read_packets, recbuf,\n\t\t\t\t\t   reuseaddr, send_timeout, sndbuf])\n\t\t\t    of\n\t\t\t  {ok, Opts} -&amp;gt; [{options, Opts}];\n\t\t\t  {error, _} -&amp;gt; []\n\t\t\tend;\n\t      {_, \&quot;efile\&quot;} -&amp;gt; [];\n\t      _ -&amp;gt; []\n\t    end,\n    {type, Props};\nport_info(PortTerm, Keys) when is_list(Keys) -&amp;gt;\n    Port = recon_lib:term_to_port(PortTerm),\n    [erlang:port_info(Port, Key) || Key &amp;lt;- Keys];\nport_info(PortTerm, Key) when is_atom(Key) -&amp;gt;\n    erlang:port_info(recon_lib:term_to_port(PortTerm), Key).\n\nport_info_type(PortTerm, Type, Keys) -&amp;gt;\n    Port = recon_lib:term_to_port(PortTerm),\n    {Type, [erlang:port_info(Port, Key) || Key &amp;lt;- Keys]}.\n\n-spec({{rpc, 1},\n       [{type, 684, &#39;fun&#39;,\n\t [{type, 684, product,\n\t   [{type, 684, &#39;fun&#39;,\n\t     [{type, 684, product, []}, {type, 684, term, []}]}]},\n\t  {type, 684, tuple,\n\t   [{type, 684, list,\n\t     [{ann_type, 684,\n\t       [{var, 684, &#39;Success&#39;}, {var, 684, &#39;_&#39;}]}]},\n\t    {type, 684, list,\n\t     [{ann_type, 684,\n\t       [{var, 684, &#39;Fail&#39;}, {var, 684, &#39;_&#39;}]}]}]}]}]}).\n\nrpc(Fun) -&amp;gt; rpc([node() | nodes()], Fun).\n\n-spec({{rpc, 2},\n       [{type, 689, &#39;fun&#39;,\n\t [{type, 689, product,\n\t   [{type, 689, union,\n\t     [{type, 689, node, []},\n\t      {type, 689, nonempty_list, [{type, 689, node, []}]}]},\n\t    {type, 689, &#39;fun&#39;,\n\t     [{type, 689, product, []}, {type, 689, term, []}]}]},\n\t  {type, 689, tuple,\n\t   [{type, 689, list,\n\t     [{ann_type, 689,\n\t       [{var, 689, &#39;Success&#39;}, {var, 689, &#39;_&#39;}]}]},\n\t    {type, 689, list,\n\t     [{ann_type, 689,\n\t       [{var, 689, &#39;Fail&#39;}, {var, 689, &#39;_&#39;}]}]}]}]}]}).\n\nrpc(Nodes, Fun) -&amp;gt; rpc(Nodes, Fun, infinity).\n\n-spec({{rpc, 3},\n       [{type, 694, &#39;fun&#39;,\n\t [{type, 694, product,\n\t   [{type, 694, union,\n\t     [{type, 694, node, []},\n\t      {type, 694, nonempty_list, [{type, 694, node, []}]}]},\n\t    {type, 694, &#39;fun&#39;,\n\t     [{type, 694, product, []}, {type, 694, term, []}]},\n\t    {type, 694, timeout, []}]},\n\t  {type, 694, tuple,\n\t   [{type, 694, list,\n\t     [{ann_type, 694,\n\t       [{var, 694, &#39;Success&#39;}, {var, 694, &#39;_&#39;}]}]},\n\t    {type, 694, list,\n\t     [{ann_type, 694,\n\t       [{var, 694, &#39;Fail&#39;}, {var, 694, &#39;_&#39;}]}]}]}]}]}).\n\n&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But the result is urgly, who have good idea to make a beautiful print?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33630233</id>
+        <re:rank scheme="http://stackoverflow.com">3</re:rank>
+        <title type="text">About the usage of `||` in erlang</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>BlackMamba</name>
+            <uri>http://stackoverflow.com/users/2223579</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33630233/about-the-usage-of-in-erlang" />
+        <published>2015-11-10T12:40:54Z</published>
+        <updated>2015-11-10T13:07:48Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am reading the source code of project &lt;code&gt;recon&lt;/code&gt;,
+i find an interesting code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;proc_attrs(binary_memory, Pid) -&amp;gt;
+    case process_info(Pid, [binary, registered_name,
+                            current_function, initial_call]) of
+        [{_, Bins}, {registered_name,Name}, Init, Cur] -&amp;gt;
+            {ok, {Pid, binary_memory(Bins), [Name || is_atom(Name)]++[Init, Cur]}};
+        undefined -&amp;gt;
+            {error, undefined}
+    end;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;in this code, there has a &lt;code&gt;[Name || is_atom(Name)]&lt;/code&gt;,&lt;/p&gt;
+
+&lt;p&gt;I am try in the shell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;27&amp;gt; [a || is_atom(a)].
+[a]
+28&amp;gt; [a || is_atom(&quot;a&quot;)].
+[]
+29&amp;gt; [a || true].
+[a]
+30&amp;gt; [a || false].
+[]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But i never see the usage like this, who can tell me the detail? &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33627303</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">How to convert Erlang sys.config into Elixir config.exs?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="elixir" />
+        <author>
+            <name>marek</name>
+            <uri>http://stackoverflow.com/users/1178309</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33627303/how-to-convert-erlang-sys-config-into-elixir-config-exs" />
+        <published>2015-11-10T09:58:50Z</published>
+        <updated>2015-11-10T11:13:15Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;This is just probably easy one.
+For example this sys.config into mix config.exs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{gsms, [{interfaces,
+  [
+   {gsms_0705, 1, [{device,&quot;/dev/tty.usbserial-FTF5DP2J&quot;},
+           {bnumber, &quot;&amp;lt;phone-number&amp;gt;&quot;},{baud,19200},
+           {reopen_timeout, 5000}]}
+   {gsms_0705, 2, [{device,&quot;/dev/tty.HUAWEIMobile-Pcui&quot;},
+           {bnumber, &quot;&amp;lt;phone-number&amp;gt;&quot;},
+           {reopen_timeout, 5000}]}
+   {gsms_0705, 3, [{device, &quot;/dev/tty.usbserial&quot;},
+          {bnumber, &quot;&amp;lt;phone-number&amp;gt;&quot;},
+          {baud, 9600}]}
+  ]}
+]}
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33626677</id>
+        <re:rank scheme="http://stackoverflow.com">4</re:rank>
+        <title type="text">What is the c program exit(0) equivalent function call in erlang?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="otp" />
+        <author>
+            <name>Talespin_Kit</name>
+            <uri>http://stackoverflow.com/users/579689</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33626677/what-is-the-c-program-exit0-equivalent-function-call-in-erlang" />
+        <published>2015-11-10T09:27:05Z</published>
+        <updated>2015-11-10T09:56:13Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;How to kill the erlang program within erlang program? &lt;strong&gt;exit/1&lt;/strong&gt; command does not behave same as &lt;strong&gt;c&lt;/strong&gt; language standard library &lt;strong&gt;exit&lt;/strong&gt; call.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/18011784</id>
+        <re:rank scheme="http://stackoverflow.com">67</re:rank>
+        <title type="text">Why are there two kinds of functions in Elixir?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="elixir" />
+        <author>
+            <name>Alex Marandon</name>
+            <uri>http://stackoverflow.com/users/348867</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/18011784/why-are-there-two-kinds-of-functions-in-elixir" />
+        <published>2013-08-02T08:04:16Z</published>
+        <updated>2015-11-10T09:52:23Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I&#39;m learning Elixir and I wonder why it has two types of functions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;functions defined in a module with &lt;code&gt;def&lt;/code&gt;, called using &lt;code&gt;myfunction(param1, param2)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;anonymous functions defined with &lt;code&gt;fn&lt;/code&gt;, called using &lt;code&gt;myfn.(param1, param2)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Only the second kind of function seems to be a first-class object and can be passed as a parameter to other functions. A function defined in a module needs to be wrapped in a &lt;code&gt;fn&lt;/code&gt;. There&#39;s some syntactic sugar which looks like &lt;code&gt;otherfunction(myfunction(&amp;amp;1, &amp;amp;2))&lt;/code&gt; in order to make that easy, but why is it necessary in the first place? Why can&#39;t we just do &lt;code&gt;otherfunction(myfunction))&lt;/code&gt;? Is it only to allow calling module functions without parenthesis like in Ruby? It seems to have inherited this characteristic from Erlang which also has module functions and funs, so does it actually comes from how the Erlang VM works internally?&lt;/p&gt;
+
+&lt;p&gt;It there any benefit having two types of functions and converting from one type to another in order to pass them to other functions? Is there a benefit having two different notations to call functions?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33604004</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Why Erlang and other function programming languages not native c/c++? [on hold]</title>
+            <category scheme="http://stackoverflow.com/tags" term="c++" />
+            <category scheme="http://stackoverflow.com/tags" term="c" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="native" />
+            <category scheme="http://stackoverflow.com/tags" term="scalability" />
+        <author>
+            <name>DU Jiaen</name>
+            <uri>http://stackoverflow.com/users/3003290</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33604004/why-erlang-and-other-function-programming-languages-not-native-c-c" />
+        <published>2015-11-09T07:04:31Z</published>
+        <updated>2015-11-09T14:06:15Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am a strict native languages programmer learning Erlang recently, and I am wondering why people not use c/c++ to directly implement their own functions/modules and run it natively ? And it&#39;s not something very difficult to implements even with good scalability. Here&#39;s my thoughts:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Any functions in functional programming language take some inputs and generate some outputs. This can be easily done in c/c++ by making small programs (.exe). Each executable has its name in the format of name_version.exe and takes one file as input data and produce another file as output data.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Programming invocation is nothing but making a temporary input file and calling the most updated .exe file and waiting for the result.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Remote function call in function programming language can be implemented by making a server program in each server, accepting requests in the form of (executable path + &#39; &#39; + input params), then the server start to look for the latest version of executable in their local copies, invoke it as a new process, and sending back results in TCP stream.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Scalability can be implemented by making a monitor program in each server returning current states (%cpu, %mem) and shooting UDP messages to tell other servers periodically. So that each .exe program can smartly do RPC to the idle servers.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Application update is as easy as copying a new .exe files with the increasing version number. And old .exe files won&#39;t be deleted, or can be deleted manually.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So overall, function programming seems to be something to solve the scalability problem. And scalability problem often arise in the situation that one machine has some certain bottleneck on CPU, mem, harddisk,... etc. However, if function programming is not efficient enough, it won&#39;t actually be a true solution to scalability problem. Just think of a native program runs 20x faster than a program written in a function programming language, and use 10x less memory. And it&#39;s similar to say that you have 20 machines running together, but all these machines can&#39;t even beat a single machine that running the native code.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33607098</id>
+        <re:rank scheme="http://stackoverflow.com">-2</re:rank>
+        <title type="text">Why the cpu usage is not stable?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="cpu-usage" />
+        <author>
+            <name>BlackMamba</name>
+            <uri>http://stackoverflow.com/users/2223579</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33607098/why-the-cpu-usage-is-not-stable" />
+        <published>2015-11-09T10:28:08Z</published>
+        <updated>2015-11-09T11:01:43Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am testing my erlang application use sipp.
+I use &lt;code&gt;vmstat 5 5&lt;/code&gt; to collection the memory and cpu usage information, then i use the collected data to generate two graph.
+&lt;a href=&quot;http://i.stack.imgur.com/aG7Qg.jpg&quot; rel=&quot;nofollow&quot;&gt;&lt;img src=&quot;http://i.stack.imgur.com/aG7Qg.jpg&quot; alt=&quot;enter image description here&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;From the graph, i find the memory usage is normal, but the cpu usage is strange, i think the usage of cpu should be stable like memory.
+For stable usage:
+&lt;a href=&quot;http://i.stack.imgur.com/6qd3m.png&quot; rel=&quot;nofollow&quot;&gt;&lt;img src=&quot;http://i.stack.imgur.com/6qd3m.png&quot; alt=&quot;enter image description here&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;the difference between this situation is:
+one configure parameter is on for the unstable graph.
+if the configure parameter is on, these code will be run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;decode_tai(Location) -&amp;gt;
+    &amp;lt;&amp;lt;MCC2:1/binary,MCC1:1/binary,MNC3:1/binary,MCC3:1/binary,MNC2:1/binary,MNC1:1/binary,TAC/binary&amp;gt;&amp;gt; = Location,
+    ECI = &amp;lt;&amp;lt;&quot;0000000&quot;&amp;gt;&amp;gt;,
+    case MNC3 == &amp;lt;&amp;lt;&quot;F&quot;&amp;gt;&amp;gt; of
+        true -&amp;gt;
+            binary_to_list(&amp;lt;&amp;lt;MCC1/binary,MCC2/binary,MCC3/binary,MNC1/binary,MNC2/binary,TAC/binary,ECI/binary&amp;gt;&amp;gt;);
+        false -&amp;gt;
+            binary_to_list(&amp;lt;&amp;lt;MCC1/binary,MCC2/binary,MCC3/binary,MNC1/binary,MNC2/binary,MNC3/binary,TAC/binary,ECI/binary&amp;gt;&amp;gt;)
+    end.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;is &lt;code&gt;binary_to_list&lt;/code&gt; cpu expensive?&lt;/p&gt;
+
+&lt;p&gt;Could you give me some clues to deal with this issue?
+for example, what the key point in my code i should take care?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33549767</id>
+        <re:rank scheme="http://stackoverflow.com">-3</re:rank>
+        <title type="text">Save live stream to file</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>Oscar</name>
+            <uri>http://stackoverflow.com/users/5306746</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33549767/save-live-stream-to-file" />
+        <published>2015-11-05T16:25:35Z</published>
+        <updated>2015-11-09T05:04:25Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Im having trouble with storing strings coming from an open HTML-connection from twitter. &lt;/p&gt;
+
+&lt;p&gt;Basically what I want is to write what this (&lt;a href=&quot;https://www.youtube.com/watch?v=g6Z6mrfB8sU&quot; rel=&quot;nofollow&quot;&gt;https://www.youtube.com/watch?v=g6Z6mrfB8sU&lt;/a&gt;) guy does, but in my .erl-file instead of in the shell.&lt;/p&gt;
+
+&lt;p&gt;I&#39;ve been trying for 10 hours now and can&#39;t find what I need online.&lt;/p&gt;
+
+&lt;p&gt;Thank you &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/24919922</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Erlang: Value of attribute &#39;xmlns&#39; not extracted while parsing xml using xpath</title>
+            <category scheme="http://stackoverflow.com/tags" term="xml" />
+            <category scheme="http://stackoverflow.com/tags" term="xpath" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="xml-namespaces" />
+        <author>
+            <name>mightwork</name>
+            <uri>http://stackoverflow.com/users/3764447</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/24919922/erlang-value-of-attribute-xmlns-not-extracted-while-parsing-xml-using-xpath" />
+        <published>2014-07-23T20:04:15Z</published>
+        <updated>2015-11-08T23:25:07Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am trying to parse the following xml: &lt;code&gt;&amp;lt;&amp;lt;&quot;&amp;lt;message xmlns=\&quot;jabber:client\&quot; to=\&quot;test1@kushdev.ssqueal.org/20500423901404388005197218/Gajim\&quot; type=\&quot;chat\&quot; id=\&quot;66\&quot;&amp;gt;&amp;lt;body&amp;gt;as&amp;lt;/body&amp;gt;&amp;lt;x xmlns=\&quot;jabber:x:event\&quot;&amp;gt;&amp;lt;composing /&amp;gt;&amp;lt;/x&amp;gt;&amp;lt;thread&amp;gt;eJFMuziLDXZIdeWRvUCdjPfyIZJoucVE&amp;lt;/thread&amp;gt;&amp;lt;/message&amp;gt;&quot;&amp;gt;&amp;gt;&lt;/code&gt; .&lt;/p&gt;
+
+&lt;p&gt;To find the value of the &#39;xmlns&#39; attribute I am using  &lt;code&gt;xmerl_xpath:string(&quot;//x/@xmlns&quot;, Root).&lt;/code&gt; or &lt;code&gt;xmerl_xpath:string(&quot;//message/@xmlns&quot;, Root).&lt;/code&gt; 
+In both cases a empty list is returned, though this approach is working fine in case of other attributes. I am aware of the special status of the xmlns attr, but should&#39;nt it&#39;s value be extracted like any other attribute?&lt;/p&gt;
+
+&lt;p&gt;What am I doing wrong here and is there a better way to do this ?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33598182</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Ejabberd right way to compiling custom modules</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="ejabberd" />
+        <author>
+            <name>Talespin_Kit</name>
+            <uri>http://stackoverflow.com/users/579689</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33598182/ejabberd-right-way-to-compiling-custom-modules" />
+        <published>2015-11-08T19:40:16Z</published>
+        <updated>2015-11-08T19:40:16Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Compiled and installed ejabberd version 15.10 on ubuntu 14.04 machine in /opt/ejabberd directory.&lt;/p&gt;
+
+&lt;p&gt;In the older version the module can be compiled directly with &lt;strong&gt;erlc&lt;/strong&gt; command and then pasted to ejabberd module dir(or symbolic linked) which was very efficent way to develop the modules.&lt;/p&gt;
+
+&lt;p&gt;But after upgrading to newer ejabberd version when using the INFO_MSG()/2 from logger.hrl the ejabberd fails to load the module.&lt;/p&gt;
+
+&lt;p&gt;When compiled by placing the module file inside the ejabberd src directory and running make in ejabberd directory as suggested at &lt;a href=&quot;https://www.ejabberd.im/ejabberd-13.10&quot; rel=&quot;nofollow&quot;&gt;https://www.ejabberd.im/ejabberd-13.10&lt;/a&gt; and &lt;a href=&quot;http://stackoverflow.com/questions/18202550/ejabberd-how-to-compile-new-module&quot;&gt;ejabberd how to compile new module&lt;/a&gt; the module works.&lt;/p&gt;
+
+&lt;p&gt;But this is very inefficient compared to the older method of compiling and running the modules with elrc command directly. &lt;/p&gt;
+
+&lt;p&gt;Is the latter approach the right method, if so why was it changed and where are the official docs that explain compiling with latter approach. &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/12534898</id>
+        <re:rank scheme="http://stackoverflow.com">9</re:rank>
+        <title type="text">Splitting a list in equal sized chunks in Erlang</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>marcus</name>
+            <uri>http://stackoverflow.com/users/1602492</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/12534898/splitting-a-list-in-equal-sized-chunks-in-erlang" />
+        <published>2012-09-21T16:59:30Z</published>
+        <updated>2015-11-08T09:25:40Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I want to split:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[1,2,3,4,5,6,7,8]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;into:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[[1,2],[3,4],[5,6],[7,8]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It generally works great with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[ lists:sublist(List, X, 2) || X &amp;lt;- lists:seq(1,length(List),2) ] .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But it is really slow this way. 10000 Elements take amazing 2.5 seconds on my netbook. I have also written a really fast recursive function, but I am simply interested: Could this list comprehension also be written in a different way, so that it is faster? &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33578689</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">How can this Erlang sys.config be decomposed?</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="beagleboneblack" />
+            <category scheme="http://stackoverflow.com/tags" term="beagleboard" />
+            <category scheme="http://stackoverflow.com/tags" term="slack" />
+        <author>
+            <name>Don Branson</name>
+            <uri>http://stackoverflow.com/users/56076</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33578689/how-can-this-erlang-sys-config-be-decomposed" />
+        <published>2015-11-07T03:03:28Z</published>
+        <updated>2015-11-07T15:21:20Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Given an Erlang &lt;a href=&quot;https://github.com/DonBranson/BeagleBone-Black-Mousetrap/blob/master/config/sys.config&quot; rel=&quot;nofollow&quot;&gt;sys.config&lt;/a&gt; that looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[
+    {mousetrap, [
+        {slack_user, &quot;mousetrap&quot;},
+        {slack_channel, &quot;#mousetrap&quot;},
+        {slack_token, &quot;&amp;lt;slack token here&amp;gt;&quot;},
+        {pins_export_file, &quot;/sys/class/gpio/export&quot;},
+        {pins_root_directory, &quot;/sys/class/gpio/gpio&quot;},
+        {pins, [
+                {gpio0, 30, &quot;1 (over workshop door)&quot;},
+                {gpio0, 31, &quot;2 (by basement freezer)&quot;},
+                {gpio1, 16, &quot;3 (in the kitchen pantry)&quot;},
+                {gpio0, 5, &quot;4 (Not yet wired)&quot;}
+        ]},
+        {quiet_minutes, 5},
+        {pin_check_interval_seconds, 1}
+    ]}
+].
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&#39;d like to break it out so that the settings for each component are separated within the config file. For example, the pin_library for the BeagleBone really has no reason to include knowledge of the overall mousetrap app, so it makes sense to break it out. Likewise for the notification_library that sends messages to Slack:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[
+    {mousetrap, [
+        {pins, [
+                {gpio0, 30, &quot;1 (over workshop door)&quot;},
+                {gpio0, 31, &quot;2 (by basement freezer)&quot;},
+                {gpio1, 16, &quot;3 (in the kitchen pantry)&quot;},
+                {gpio0, 5, &quot;4 (Not yet wired)&quot;}
+        ]},
+        {quiet_minutes, 5}
+    ]},
+    {pin_server, [
+        {pins_export_file, &quot;/sys/class/gpio/export&quot;},
+        {pins_root_directory, &quot;/sys/class/gpio/gpio&quot;},
+        {pin_check_interval_seconds, 1}
+    ]},
+    {notification_library, [
+        {slack_user, &quot;mousetrap&quot;},
+        {slack_channel, &quot;#mousetrap&quot;},
+        {slack_token, &quot;&amp;lt;slack token here&amp;gt;&quot;}
+    ]}
+].
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, this doesn&#39;t work because pin_server and notification_library are not apps, which is what this construct requires within sys.config. What would be a proper Erlang way to break out these settings into suitable categories, so that &lt;a href=&quot;https://github.com/DonBranson/BeagleBone-Black-Mousetrap/blob/master/src/pin_library.erl&quot; rel=&quot;nofollow&quot;&gt;pin_library.erl&lt;/a&gt; could change from using:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ok, PinsRootDirectory} = application:get_env(mousetrap, pins_root_directory),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to using&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ok, PinsRootDirectory} = application:get_env(pin_server, pins_root_directory),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;EDIT:&lt;/p&gt;
+
+&lt;p&gt;Just to clarify why I think this is important. The components pin_server and notification_library attempt to comply with &lt;a href=&quot;https://en.wikipedia.org/wiki/Single_responsibility_principle&quot; rel=&quot;nofollow&quot;&gt;SRP&lt;/a&gt;. But when pin_server invokes &lt;code&gt;application:get_env(mousetrap, pins_root_directory)&lt;/code&gt;, it breaks the wall of SRP because it creates a dependency on a component where it should not have a dependency. That is, on the mousetrap app. Now it cannot be reused in other apps without a code change. Same goes for the notification_library. The pin_server is potentially applicable to any application that wants to interrogate the BBB&#39;s pins. The notification_library is useful in any app that wants to send a Slack notification. Neither should reference the mousetrap app, because they shouldn&#39;t have any &#39;knowledge&#39; of that app.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33579433</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to compile Tsung application?</title>
+            <category scheme="http://stackoverflow.com/tags" term="testing" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="tsung" />
+        <author>
+            <name>Govardhan Bobbili</name>
+            <uri>http://stackoverflow.com/users/5535860</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33579433/how-to-compile-tsung-application" />
+        <published>2015-11-07T05:22:12Z</published>
+        <updated>2015-11-07T09:46:46Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am using Ubuntu 14.04 and in that I installed Erlang version 15.10.4 and Tsung 1.4.2 is installed.&lt;/p&gt;
+
+&lt;p&gt;Now my problem is load balancing test of ejabberd server using tsung.&lt;/p&gt;
+
+&lt;p&gt;When I am compiling source code I am getting an error&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;Erlang version has changed ! [5.9.1] != [5.10.4]
+Must create new boot files (you may have to run this one time as root ! )
+creating boot file for tsung application
+init terminating in do_boot ()
+creating boot file for tsung_controller application
+init terminating in do_boot ()
+Creating local Tsung directory /home/ankiom/.tsung
+Creating Tsung log directory /home/ankiom/.tsung/log
+Starting Tsung
+{&quot;init terminating in do_boot&quot;,{&#39;cannot load&#39;,error_handler,get_files}}
+init terminating in do_boot ()&quot;.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I need to test how many clients can handle ejabberd server.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/1820241</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Erlang : Breaking out of lists:foreach &quot;loop&quot;</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="foreach" />
+        <author>
+            <name>ErJab</name>
+            <uri>http://stackoverflow.com/users/123545</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/1820241/erlang-breaking-out-of-listsforeach-loop" />
+        <published>2009-11-30T14:47:16Z</published>
+        <updated>2015-11-06T21:24:54Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I have a list of elements in Erlang, and I&#39;m using lists:foreach to traverse through the elements in the list. Is there a way to break out of this &quot;foreach loop&quot; in the middle of the traversal. For eg: suppose I want to stop traversing the list further if I encounter a &#39;1&#39; in the list [2, 4, 5, 1, 2, 5]. How do I do this?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/673219</id>
+        <re:rank scheme="http://stackoverflow.com">7</re:rank>
+        <title type="text">How to Search for an item in a List in Erlang?</title>
+            <category scheme="http://stackoverflow.com/tags" term="functional-programming" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+        <author>
+            <name>iankits</name>
+            <uri>http://stackoverflow.com/users/24813</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/673219/how-to-search-for-an-item-in-a-list-in-erlang" />
+        <published>2009-03-23T12:34:33Z</published>
+        <updated>2015-11-06T20:09:26Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am writing a cache gen-server for the company Use. I am wondering how to search an item from the list as I want the cost of the search for comparing various data structures in erlang like dict, orddict, List, tuples, tree, queue etc to use for cache program.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;List = [{&quot;A1&quot;,[&quot;ankit&quot;,&quot;sush&quot;, &quot;Hover&quot;, &quot;x4&quot;, &quot;a3&quot;,&quot;nilesh&quot;,&quot;mike&quot;,&quot;erlang&quot; | ...]}|...].
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, I want to search for the Key A1 and search for &#39;mike&#39; in the list. What is the best way to search the above List.&lt;/p&gt;
+
+&lt;p&gt;Please provide some examples. Atleast Pseudo for it.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/32981257</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Erlang - Issue with Terminate function</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="ejabberd" />
+            <category scheme="http://stackoverflow.com/tags" term="mongoose-im" />
+        <author>
+            <name>Luz Angeles</name>
+            <uri>http://stackoverflow.com/users/5365428</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/32981257/erlang-issue-with-terminate-function" />
+        <published>2015-10-06T23:11:56Z</published>
+        <updated>2015-11-06T20:03:24Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I am creating a module with Erlang and I have three options, which are add, edit and delete.&lt;/p&gt;
+
+&lt;p&gt;I can see in the logs that add function is being called in the init method, but I couldn&#39;t find anything related to delete messages. I guess it is because &quot;terminate method&quot; is not being called, but I am not sure if my function is correct or if I am calling edit and delete functions in the right place.&lt;/p&gt;
+
+&lt;p&gt;this is my code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-module(mod_msgschedule).
+
+-behaviour(gen_server).
+-behaviour(gen_mod).
+
+-include(&quot;ejabberd.hrl&quot;).
+-include(&quot;jlib.hrl&quot;).
+
+%% gen_mod handlers
+-export([start/2,stop/1]).
+
+%% gen_server handlers
+-export([init/1,handle_info/2, handle_call/3, handle_cast/2, terminate/2, code_change/3]).
+
+%% Hook handlers
+-export([
+    remove_delayed_message/2,
+    add_delayed_message/7,
+    edit_delayed_message/7,
+    search_delayed_messages/2,
+    check_packet/1,
+    process_sm_iq/3]).
+
+-export([start_link/2]).
+
+-define(INTERVAL, timer:minutes(5)).
+-define(PROCNAME, ?MODULE).
+-define(NS_DELAYMSG, &quot;delayed-msg&quot;).
+-record(state,{host :: binary()}).
+
+-record(delayed_msg, {id,from,to,server,scheduledTimestamp,packet,relativeId}).
+
+%%--------------------------------------------------------------------
+%% gen_mod callbacks
+%%--------------------------------------------------------------------
+start(VHost, Opts) -&amp;gt;
+    ejabberd_loglevel:set_custom(?MODULE, 5),
+    ?DEBUG(&quot;Start Module&quot;, []),
+    Proc = gen_mod:get_module_proc(VHost,?PROCNAME),
+    ChildSpec = {Proc, {?MODULE, start_link, [VHost,Opts]},
+                 transient, 1000, worker, [?MODULE]},
+    supervisor:start_child(ejabberd_sup, ChildSpec).
+
+stop(VHost) -&amp;gt;
+    Proc = gen_mod:get_module_proc(VHost,?PROCNAME),
+    supervisor:terminate_child(ejabberd_sup,Proc),
+    supervisor:delete_child(ejabberd_sup,Proc).
+
+
+start_link(VHost, Opts) -&amp;gt;
+    Proc = gen_mod:get_module_proc(VHost, ?PROCNAME),
+    gen_server:start_link({local, Proc}, ?MODULE, [VHost, Opts],[]).
+
+init([VHost, Opts]) -&amp;gt;
+    ?DEBUG(&quot;Start Timer&quot;, []),
+    process_flag(trap_exit, true),
+    ejabberd_hooks:add(filter_local_packet, VHost, ?MODULE, check_packet, 10),
+
+    timer:send_interval(?INTERVAL, self(), tick),
+
+    IQDisc = gen_mod:get_opt(iqdisc, Opts, one_queue),
+    gen_iq_handler:add_iq_handler(ejabberd_sm, VHost, ?NS_DELAYMSG,?MODULE, process_sm_iq, IQDisc),
+    %%gen_iq_handler:add_iq_handler(ejabberd_sm, VHost, ?NS_VCARD,
+    %%                              ?MODULE,process_sm_iq, IQDisc),
+    %%gen_iq_handler:add_iq_handler(ejabberd_local, VHost, ?NS_VCARD,
+    %%                              ?MODULE,process_local_iq, IQDisc),
+
+    %%DirectoryHost = gen_mod:get_opt_host(VHost, Opts, &quot;vjud.@HOST@&quot;),
+    %%Search = gen_mod:get_opt(search, Opts, true),
+
+    %%case Search of
+    %%    true -&amp;gt;
+    %%        ejabberd_router:register_route(DirectoryHost);
+    %%    _ -&amp;gt;
+    %%        ok
+    %%end,
+    {ok,#state{host=VHost}}.
+
+terminate(_Reason, State) -&amp;gt;
+    VHost = State#state.host,
+    %%case State#state.search of
+    %%    true -&amp;gt;
+    %%        ejabberd_router:unregister_route(State#state.directory_host);
+    %%    _ -&amp;gt;
+    %%        ok
+    %%end,
+    ejabberd_hooks:delete(filter_local_packet, VHost,?MODULE, check_packet, 10),
+    gen_iq_handler:remove_iq_handler(ejabberd_local, VHost, ?NS_DELAYMSG).
+    %%gen_iq_handler:remove_iq_handler(ejabberd_local, VHost, ?NS_VCARD),
+    %%gen_iq_handler:remove_iq_handler(ejabberd_sm, VHost, ?NS_VCARD),
+    %%ejabberd_hooks:delete(host_config_update, VHost, ?MODULE, config_change, 50),
+    %%ejabberd_hooks:delete(disco_local_features, VHost, ?MODULE, get_local_features, 50).
+
+handle_call(get_state, _From, State) -&amp;gt;
+    {reply, {ok, State}, State};
+handle_call(stop,_From,State) -&amp;gt;
+    {stop, normal, ok, State};
+handle_call(_Request, _From,State) -&amp;gt;
+    {reply, bad_request, State}.
+
+%% this function is called whenever gen_server receives a &#39;tick&#39; message
+handle_info(tick, State) -&amp;gt;
+    State2 = send_pending_delayed_messages(State),
+    {noreply, State2};
+
+handle_info(_Info, State) -&amp;gt;
+    {noreply, State}.
+
+handle_cast(_Request, State) -&amp;gt;
+    {noreply, State}.
+
+code_change(_OldVsn, State, _Extra) -&amp;gt;
+    {ok, State}.
+
+%% this function is called by handle_info/2 when tick message is received
+send_pending_delayed_messages(State) -&amp;gt;
+    LServer = jlib:nameprep(State#state.host),
+    Now = erlang:now(),
+    CurrentTimestamp = now_to_microseconds(Now),
+    ?DEBUG(&quot;Timer Triggered!! ~p&quot;, [CurrentTimestamp]),
+    case search_delayed_messages(LServer,CurrentTimestamp) of
+        {ok, DelayedMessages} -&amp;gt;
+            lists:foreach(fun(DelayedMessage) -&amp;gt;
+                  route_scheduled_message(LServer, DelayedMessage),
+                  remove_delayed_message(LServer, DelayedMessage)
+              end, DelayedMessages);
+        {error, Reason} -&amp;gt;
+            ?DEBUG(&quot;Select command: ~p&quot;, [{error, Reason}])
+    end,
+    State.
+
+route_scheduled_message(Server, #delayed_msg{from=From, to=To, packet=Packet} = DelayedMessage) -&amp;gt;
+    NewPacket = resend_scheduled_message_packet(Server,DelayedMessage),
+    ejabberd_router:route(From, To, NewPacket).
+
+resend_scheduled_message_packet(Server,
+        #delayed_msg{scheduledTimestamp=TimeStamp, packet = Packet}) -&amp;gt;
+    add_timestamp(TimeStamp, Server, Packet).
+
+add_timestamp(undefined, _Server, Packet) -&amp;gt;
+    Packet;
+add_timestamp({_,_,Micro} = TimeStamp, Server, Packet) -&amp;gt;
+    {D,{H,M,S}} = calendar:now_to_universal_time(TimeStamp),
+    Time = {D,{H,M,S, Micro}},
+    TimeStampXML = timestamp_xml(Server, Time),
+    xml:append_subtags(Packet, [TimeStampXML]).
+
+timestamp_xml(Server, Time) -&amp;gt;
+    FromJID = jlib:make_jid(&amp;lt;&amp;lt;&amp;gt;&amp;gt;, Server, &amp;lt;&amp;lt;&amp;gt;&amp;gt;),
+    jlib:timestamp_to_xml(Time, utc, FromJID, &amp;lt;&amp;lt;&quot;Offline Storage&quot;&amp;gt;&amp;gt;).   
+
+%%--------------------------------------------------------------------
+%% Hook handler
+%%--------------------------------------------------------------------
+
+check_packet({From, To, XML} = Packet) -&amp;gt;
+    #jid{luser = LUser, lserver = LServer} = From,
+    case XML#xmlel.name of
+        &amp;lt;&amp;lt;&quot;message&quot;&amp;gt;&amp;gt; -&amp;gt;
+            Type = xml:get_tag_attr_s(list_to_binary(&quot;type&quot;), XML),
+            case Type of
+                &amp;lt;&amp;lt;&quot;chat&quot;&amp;gt;&amp;gt; -&amp;gt;
+                    DeltaTimeStampS = binary_to_list(xml:get_path_s(XML, [{elem, list_to_binary(&quot;scheduled_time&quot;)}, cdata])),
+                    case DeltaTimeStampS of
+                        &quot;&quot; -&amp;gt;
+                            Packet;
+                        _ -&amp;gt;
+                            RelativeId = binary_to_list(xml:get_path_s(XML, [{elem, list_to_binary(&quot;delayed_msg_id&quot;)}, cdata])),
+                            {DeltaTimeStampI, _Rest} = string:to_integer(DeltaTimeStampS),
+                            case _Rest of
+                                [] -&amp;gt;
+                                    Action = binary_to_list(xml:get_path_s(XML, [{elem, list_to_binary(&quot;delayed_msg_action&quot;)}, cdata])),
+                                    ScheduledTimestamp = from_now_to_microseconds(erlang:now(),DeltaTimeStampI),
+                                    NewChildren = lists:delete(lists:keyfind(&amp;lt;&amp;lt;&quot;scheduled_time&quot;&amp;gt;&amp;gt;, 2, XML#xmlel.children),XML#xmlel.children),
+                                    NewXML = XML#xmlel{ children = NewChildren },
+                                    case Action of
+                                        &quot;edit&quot; -&amp;gt;                                           
+                                            edit_delayed_message(LServer, binary_to_list(From#jid.luser), binary_to_list(To#jid.luser), binary_to_list(To#jid.lserver), ScheduledTimestamp, NewXML,RelativeId);
+
+                                        &quot;delete&quot; -&amp;gt;
+                                            remove_delayed_message(LServer,#delayed_msg{from = binary_to_list(From#jid.luser), relativeId = RelativeId});                                           
+                                        _ -&amp;gt;
+                                            add_delayed_message(LServer, binary_to_list(From#jid.luser), binary_to_list(To#jid.luser), binary_to_list(To#jid.lserver), ScheduledTimestamp, NewXML,RelativeId)
+                                        end
+                            end,
+                            drop
+                    end;
+                    &amp;lt;&amp;lt;&quot;groupchat&quot;&amp;gt;&amp;gt; -&amp;gt;
+                    DeltaTimeStampS = binary_to_list(xml:get_path_s(XML, [{elem, list_to_binary(&quot;scheduled_time&quot;)}, cdata])),
+                    case DeltaTimeStampS of
+                        &quot;&quot; -&amp;gt;
+                            Packet;
+                        _ -&amp;gt;
+                            RelativeId = binary_to_list(xml:get_path_s(XML, [{elem, list_to_binary(&quot;delayed_msg_id&quot;)}, cdata])),
+                            {DeltaTimeStampI, _Rest} = string:to_integer(DeltaTimeStampS),
+                            case _Rest of
+                                [] -&amp;gt;
+                                    Action = binary_to_list(xml:get_path_s(XML, [{elem, list_to_binary(&quot;delayed_msg_action&quot;)}, cdata])),
+                                    ScheduledTimestamp = from_now_to_microseconds(erlang:now(),DeltaTimeStampI),
+                                    NewChildren = lists:delete(lists:keyfind(&amp;lt;&amp;lt;&quot;scheduled_time&quot;&amp;gt;&amp;gt;, 2, XML#xmlel.children),XML#xmlel.children),
+                                    NewXML = XML#xmlel{ children = NewChildren },
+                                    case Action of
+                                        &quot;edit&quot; -&amp;gt;                                           
+                                            edit_delayed_message(LServer, binary_to_list(From#jid.luser), binary_to_list(To#jid.luser), binary_to_list(To#jid.lserver), ScheduledTimestamp, NewXML,RelativeId);
+
+                                        &quot;delete&quot; -&amp;gt;
+                                            remove_delayed_message(LServer,#delayed_msg{from = binary_to_list(From#jid.luser), relativeId = RelativeId});                                           
+                                        _ -&amp;gt;
+                                            add_delayed_message(LServer, binary_to_list(From#jid.luser), binary_to_list(To#jid.luser), binary_to_list(To#jid.lserver), ScheduledTimestamp, NewXML,RelativeId)
+                                        end
+                            end,
+                            drop
+                    end;
+                _ -&amp;gt; Packet
+            end;
+        _ -&amp;gt; Packet
+    end.
+
+
+process_sm_iq(_From, _To, #iq{type = get, xmlns = ?NS_DELAYMSG} = IQ) -&amp;gt;
+    ?INFO_MSG(&quot;Processing IQ Get query:~n ~p&quot;, [IQ]),
+    IQ#iq{type = result, sub_el = [{xmlelement, &quot;value&quot;, [], [{xmlcdata, &quot;Hello World of Testing.&quot;}]}]};
+process_sm_iq(_From, _To, #iq{type = set} = IQ) -&amp;gt;
+    ?INFO_MSG(&quot;Processing IQ Set: it does nothing&quot;, []),
+    IQ#iq{type = result, sub_el = []};
+process_sm_iq(_From, _To, #iq{sub_el = SubEl} = IQ) -&amp;gt;
+    ?INFO_MSG(&quot;Processing IQ other type: it does nothing&quot;, []),
+    IQ#iq{type = error, sub_el = [SubEl, ?ERR_FEATURE_NOT_IMPLEMENTED]}.
+
+%%--------------------------------------------------------------------
+%% ODBC Functions
+%%--------------------------------------------------------------------
+
+
+remove_delayed_message(LServer, #delayed_msg{from=FromUserName, relativeId = RelativeId}) -&amp;gt;
+        QR = ejabberd_odbc:sql_query(
+          LServer,
+          [&amp;lt;&amp;lt;&quot;delete from delayed_message &quot;
+                &quot;where from_jid = &#39;&quot;&amp;gt;&amp;gt;, ejabberd_odbc:escape(FromUserName#jid.luser),&amp;lt;&amp;lt;&quot;&#39; and relative_id = &#39;&quot;&amp;gt;&amp;gt;,ejabberd_odbc:escape(list_to_binary(RelativeId)),&amp;lt;&amp;lt;&quot;&#39;;&quot;&amp;gt;&amp;gt;]),
+        ?DEBUG(&quot;DELETE ~p&quot;, [QR]).
+
+prepare_delayed_message(SFromUserName, SToUsername, SServer, SScheduledTimestamp, SPacket,SRelativeId) -&amp;gt;
+    [&amp;lt;&amp;lt;&quot;(&#39;&quot;&amp;gt;&amp;gt;,   ejabberd_odbc:escape(list_to_binary(SFromUserName)),
+     &amp;lt;&amp;lt;&quot;&#39;, &#39;&quot;&amp;gt;&amp;gt;, ejabberd_odbc:escape(list_to_binary(SToUsername)),
+     &amp;lt;&amp;lt;&quot;&#39;, &#39;&quot;&amp;gt;&amp;gt;, ejabberd_odbc:escape(list_to_binary(SServer)),
+     &amp;lt;&amp;lt;&quot;&#39;, &quot;&amp;gt;&amp;gt;,   integer_to_list(SScheduledTimestamp),
+     &amp;lt;&amp;lt;&quot;, &#39;&quot;&amp;gt;&amp;gt;, ejabberd_odbc:escape(xml:element_to_binary(SPacket)),
+     &amp;lt;&amp;lt;&quot;&#39;, &#39;&quot;&amp;gt;&amp;gt;, ejabberd_odbc:escape(list_to_binary(SRelativeId)),
+     &amp;lt;&amp;lt;&quot;&#39;)&quot;&amp;gt;&amp;gt;].
+
+add_delayed_message(LServer, SFromUserName, SToUsername, SServer, SScheduledTimestamp, SPacket, SRelativeId) -&amp;gt;
+    Rows = prepare_delayed_message(SFromUserName, SToUsername, SServer, SScheduledTimestamp, SPacket,SRelativeId),
+    QR = ejabberd_odbc:sql_query(
+      LServer,
+      [&amp;lt;&amp;lt;&quot;insert into delayed_message(from_jid,to_jid,server,scheduled_time,packet,relative_id) &quot;
+       &quot;values &quot;&amp;gt;&amp;gt;, join(Rows, &quot;&quot;)]),
+       ?DEBUG(&quot;Delayed message inserted? ~p&quot;, [QR]).
+
+edit_delayed_message(LServer,SFromUserName, SToUsername, SServer, SScheduledTimestamp, SPacket, SRelativeId) -&amp;gt;
+    ejabberd_odbc:sql_query(
+      LServer,
+      [&amp;lt;&amp;lt;&quot;update delayed_message set to_jid=&#39;&quot;&amp;gt;&amp;gt;,ejabberd_odbc:escape(list_to_binary(SToUsername)),
+       &amp;lt;&amp;lt;&quot;&#39; , server=&#39;&quot;&amp;gt;&amp;gt;,ejabberd_odbc:escape(list_to_binary(SServer)),
+       &amp;lt;&amp;lt;&quot;&#39; , scheduled_time=&quot;&amp;gt;&amp;gt;,integer_to_list(SScheduledTimestamp),
+       &amp;lt;&amp;lt;&quot;, packet=&#39;&quot;&amp;gt;&amp;gt;,ejabberd_odbc:escape(xml:element_to_binary(SPacket)),
+       &amp;lt;&amp;lt;&quot;&#39; where from_jid=&#39;&quot;&amp;gt;&amp;gt;,ejabberd_odbc:escape(list_to_binary(SFromUserName)),
+       &amp;lt;&amp;lt;&quot;&#39; AND relative_id = &#39;&quot;&amp;gt;&amp;gt;, ejabberd_odbc:escape(list_to_binary(SRelativeId)),&amp;lt;&amp;lt;&quot;&#39;;&quot;&amp;gt;&amp;gt;]).
+
+search_delayed_messages(LServer, SScheduledTimestamp) -&amp;gt;
+    ScheduledTimestamp = encode_timestamp(SScheduledTimestamp),
+    Query = [&amp;lt;&amp;lt;&quot;select id,from_jid,to_jid,server,scheduled_time,packet,relative_id from delayed_message where &quot;&amp;gt;&amp;gt;,
+        &amp;lt;&amp;lt;&quot;(scheduled_time &amp;lt; &quot;&amp;gt;&amp;gt;,ScheduledTimestamp,&amp;lt;&amp;lt;&quot; OR &quot;&amp;gt;&amp;gt;,ScheduledTimestamp,&amp;lt;&amp;lt;&quot; = 0);&quot;&amp;gt;&amp;gt;],
+
+    case ejabberd_odbc:sql_query(LServer,Query) of
+        {selected, [&amp;lt;&amp;lt;&quot;id&quot;&amp;gt;&amp;gt;,&amp;lt;&amp;lt;&quot;from_jid&quot;&amp;gt;&amp;gt;,&amp;lt;&amp;lt;&quot;to_jid&quot;&amp;gt;&amp;gt;,&amp;lt;&amp;lt;&quot;server&quot;&amp;gt;&amp;gt;,&amp;lt;&amp;lt;&quot;scheduled_time&quot;&amp;gt;&amp;gt;,&amp;lt;&amp;lt;&quot;packet&quot;&amp;gt;&amp;gt;,&amp;lt;&amp;lt;&quot;relative_id&quot;&amp;gt;&amp;gt;], Rows} -&amp;gt;
+            {ok, rows_to_records(Rows)};
+        {aborted, Reason} -&amp;gt;
+            {error, Reason};
+        {error, Reason} -&amp;gt;
+            {error, Reason}
+    end.
+
+    rows_to_records(Rows) -&amp;gt;
+    [row_to_record(Row) || Row &amp;lt;- Rows].
+
+row_to_record({SId, SFromUserName, SToUsername, SServer, SScheduledTimestamp, SPacket,SRelativeId}) -&amp;gt;
+
+    Id = list_to_integer(binary_to_list(SId)),
+    Server = binary_to_list(SServer),
+    From = jlib:make_jid(SFromUserName,SServer,&amp;lt;&amp;lt;&quot;fb&quot;&amp;gt;&amp;gt;),
+    To = jlib:make_jid(SToUsername,SServer,&amp;lt;&amp;lt;&quot;fb&quot;&amp;gt;&amp;gt;),
+    ScheduledTimestamp = microseconds_to_now(list_to_integer(binary_to_list(SScheduledTimestamp))),
+    Packet = xml_stream:parse_element(SPacket),
+    RelativeId = binary_to_list(SRelativeId),
+    #delayed_msg{id = Id,
+             from = From,
+             to = To,
+             server = Server,
+             scheduledTimestamp = ScheduledTimestamp,
+             packet = Packet,
+             relativeId = RelativeId}.
+
+
+%% ------------------------------------------------------------------
+%% Helpers
+
+choose_strategy(true,  true, get) -&amp;gt; get;
+choose_strategy(true,  true, set) -&amp;gt; set;
+choose_strategy(false, _,    _  ) -&amp;gt; not_allowed;
+choose_strategy(_,     _,    _  ) -&amp;gt; forbidden.
+
+compare_bare_jids(#jid{luser = LUser, lserver = LServer},
+                  #jid{luser = LUser, lserver = LServer}) -&amp;gt; true;
+compare_bare_jids(_, _) -&amp;gt; false.
+
+element_to_namespace(#xmlel{attrs = Attrs}) -&amp;gt;
+    xml:get_attr_s(&amp;lt;&amp;lt;&quot;xmlns&quot;&amp;gt;&amp;gt;, Attrs);
+element_to_namespace(_) -&amp;gt;
+    &amp;lt;&amp;lt;&amp;gt;&amp;gt;.
+
+%% Skip invalid elements.
+to_map(Elems) -&amp;gt;
+    [{NS, Elem} || Elem &amp;lt;- Elems, is_valid_namespace(NS = element_to_namespace(Elem))].
+
+is_valid_namespace(Namespace) -&amp;gt; Namespace =/= &amp;lt;&amp;lt;&amp;gt;&amp;gt;.
+
+error_iq(IQ=#iq{sub_el=SubElem}, ErrorStanza) -&amp;gt;
+    IQ#iq{type = error, sub_el = [SubElem, ErrorStanza]}.
+
+
+from_now_to_microseconds({Mega, Secs, Micro}, FromNow) -&amp;gt;
+    Mega*1000*1000*1000*1000 + Secs * 1000 * 1000 + Micro + FromNow.
+
+now_to_microseconds({Mega, Secs, Micro}) -&amp;gt;
+    Mega*1000*1000*1000*1000 + Secs * 1000 * 1000 + Micro.
+
+
+encode_timestamp(TimeStamp) -&amp;gt;
+    integer_to_list(TimeStamp).
+
+maybe_encode_timestamp(never) -&amp;gt;
+    &quot;null&quot;;
+maybe_encode_timestamp(TimeStamp) -&amp;gt;
+    encode_timestamp(TimeStamp).
+
+microseconds_to_now(MicroSeconds) when is_integer(MicroSeconds) -&amp;gt;
+    Seconds = MicroSeconds div 1000000,
+    {Seconds div 1000000, Seconds rem 1000000, MicroSeconds rem 1000000}.
+
+join([], _Sep) -&amp;gt;
+    [];
+join([H|T], Sep) -&amp;gt;
+    [H, [[Sep, X] || X &amp;lt;- T]].
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33571744</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Compile Erlang in Intellij</title>
+            <category scheme="http://stackoverflow.com/tags" term="intellij-idea" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="erl" />
+            <category scheme="http://stackoverflow.com/tags" term="beam" />
+        <author>
+            <name>sebax</name>
+            <uri>http://stackoverflow.com/users/5534339</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33571744/compile-erlang-in-intellij" />
+        <published>2015-11-06T16:53:34Z</published>
+        <updated>2015-11-06T16:53:34Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I try compile/make erl files in Intellij with Erlang plugin. Everything is good with compilation but in out/production folder don&#39;t create any files .beam and when I run console I get message: &#39;exception error: undefined function. When I use c(&quot;file&quot;). everything is all right. &lt;/p&gt;
+
+&lt;p&gt;Why Intellij don&#39;t create .beam files? &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33564739</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">erlang google oauth2 protocol for google calling apis</title>
+            <category scheme="http://stackoverflow.com/tags" term="oauth-2.0" />
+            <category scheme="http://stackoverflow.com/tags" term="google-api" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="jwt" />
+            <category scheme="http://stackoverflow.com/tags" term="erlangweb" />
+        <author>
+            <name>Krishna</name>
+            <uri>http://stackoverflow.com/users/5408524</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33564739/erlang-google-oauth2-protocol-for-google-calling-apis" />
+        <published>2015-11-06T10:31:26Z</published>
+        <updated>2015-11-06T13:14:36Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;Hello I am writing oauth 2 library to access google api&#39;s and my code is as follows&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    jwt_create() -&amp;gt;
+
+    {ok,PemBin} = file:read_file(&quot;your-key-file.pem&quot;),
+    PemEntry = public_key:pem_decode(PemBin),
+    [A,B] = PemEntry,
+    io:format(&quot;A:: ~p ~n&quot;,[A]),
+    PrivateKey = public_key:pem_entry_decode(PemEntry),
+    JwtHeaderJson = encode_json(jwt_header()),
+    JwtClaimsetJson = encode_json(jwt_claimset()),
+    ComputeSignature = compute_signature(JwtHeaderJson, JwtClaimsetJson, PrivateKey),
+    Z=binary:replace(
+      binary:replace(&amp;lt;&amp;lt;JwtHeaderJson/binary, &quot;.&quot;, JwtClaimsetJson/binary, &quot;.&quot;, ComputeSignature/binary&amp;gt;&amp;gt;,
+                     &amp;lt;&amp;lt;&quot;+&quot;&amp;gt;&amp;gt;, &amp;lt;&amp;lt;&quot;-&quot;&amp;gt;&amp;gt;, [global]),
+      &amp;lt;&amp;lt;&quot;/&quot;&amp;gt;&amp;gt;, &amp;lt;&amp;lt;&quot;_&quot;&amp;gt;&amp;gt;, [global]),
+    io:format(&quot;JWT:: ~p ~n&quot;,[Z]).
+compute_signature(Header, ClaimSet,#&#39;RSAPrivateKey&#39;{publicExponent=Exponent
+
+                                                          ,modulus=Modulus
+
+                                                          ,privateExponent=PrivateExponent}) -&amp;gt;
+    base64:encode(crypto:sign(rsa, sha256, &amp;lt;&amp;lt;Header/binary, &quot;.&quot;, ClaimSet/binary&amp;gt;&amp;gt;, 
+            [Exponent, Modulus, PrivateExponent])).
+encode_json(JWToken) -&amp;gt;
+    base64:encode(jsx:encode(JWToken)).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am getting error as follows:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;exception error: no function clause matching 
+                      public_key:pem_entry_decode([{&#39;PrivateKeyInfo&#39;,&amp;lt;&amp;lt;48,130,4,191,2,1,0,48,13,6,9,42,134,
+                                                                       72,134,247,13,1,1,1,5,0,4,130,4,...&gt;&gt;,
+                                                                     not_encrypted},
+                                                   {&#39;Certificate&#39;,&amp;lt;&amp;lt;48,130,3,96,48,130,2,72,160,3,2,1,2,2,8,
+                                                                    79,59,244,35,60,15,3,155,48,...&gt;&gt;,
+                                                                  not_encrypted}]) (public_key.erl, line 123)
+       in function  googleoauth:jwt_create/0 (src/googleoauth.erl, line 55)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Please help me in generating JWS and JWT for OAUTH 2 for accessing google apis&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33557099</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Race condition example in Programming Erlang book</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="race-condition" />
+        <author>
+            <name>PJ.Hades</name>
+            <uri>http://stackoverflow.com/users/403367</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33557099/race-condition-example-in-programming-erlang-book" />
+        <published>2015-11-05T23:59:05Z</published>
+        <updated>2015-11-06T06:18:44Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;At the end of Chapter 13 of the book &lt;em&gt;Programming Erlang: Software for a Concurrent World&lt;/em&gt;, we are given a piece of code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;keep_alive(Name, Fun) -&amp;gt;
+    register(Name, Pid = spawn(Fun)),
+    on_exit(Pid, fun(_Why) -&amp;gt; keep_alive(Name, Fun) end).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the book says:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The process &lt;code&gt;Pid&lt;/code&gt; may die before &lt;code&gt;on_exit&lt;/code&gt; is executed.&lt;/li&gt;
+&lt;li&gt;The code has a race condition that could happen &lt;strong&gt;if two programs try to evaluate &lt;code&gt;keep_alive&lt;/code&gt; at the same time and with the same value of &lt;code&gt;Name&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If two programs call &lt;code&gt;keep_alive&lt;/code&gt; with the same &lt;code&gt;Name&lt;/code&gt; at the same time, then one of the &lt;code&gt;register&lt;/code&gt; calls will trigger a &lt;code&gt;badarg&lt;/code&gt; exception since the name has been taken, and calling process will die.&lt;/p&gt;
+
+&lt;p&gt;So, it&#39;s not &lt;em&gt;process &lt;code&gt;Pid&lt;/code&gt; dies before &lt;code&gt;on_exit&lt;/code&gt; is called&lt;/em&gt;, but &lt;em&gt;the process calling &lt;code&gt;on_exit&lt;/code&gt; dies&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;What&#39;s the author&#39;s point here by using this as an example to describe the race condition?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33301788</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to create Error log for ejabberd messages</title>
+            <category scheme="http://stackoverflow.com/tags" term="module" />
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="xmpp" />
+            <category scheme="http://stackoverflow.com/tags" term="ejabberd" />
+        <author>
+            <name>Nitin</name>
+            <uri>http://stackoverflow.com/users/5303487</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33301788/how-to-create-error-log-for-ejabberd-messages" />
+        <published>2015-10-23T11:58:55Z</published>
+        <updated>2015-11-05T21:17:27Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I have ejabberd 15.07 and i need to create Error log that logs only message that are returned back as error to its originator. we have user_send_packet hook using which it is possible to log all the packets sent to server but how to filter the error messages from it?&lt;/p&gt;
+
+&lt;p&gt;When client sends a message,this message is first received at server where server parse this Xml packet to verify it syntactically, beside that perform  privacy and auth check also before routing it to it&#39;s receiver. if server finds any error or sender of this message lacks any authorization , it return this message back to sender and modify its type to error to inform him.
+now what i need is to trace this message before routing back to it&#39;s sender.  &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/33389770</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Create mnesia tables without using atoms</title>
+            <category scheme="http://stackoverflow.com/tags" term="erlang" />
+            <category scheme="http://stackoverflow.com/tags" term="ejabberd" />
+            <category scheme="http://stackoverflow.com/tags" term="mnesia" />
+        <author>
+            <name>Talespin_Kit</name>
+            <uri>http://stackoverflow.com/users/579689</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/33389770/create-mnesia-tables-without-using-atoms" />
+        <published>2015-10-28T11:25:02Z</published>
+        <updated>2015-11-05T21:09:35Z</updated>
+        <summary type="html">
+            
+
+            &lt;p&gt;I have a requirement where i need to create a mnesia table for every ejabberd user. Since the users are large and their username is not known in advance, the mnesia tables with the username has to be created at runtime. Currently this is done by creating the atoms dynamically for the table-name as the &lt;strong&gt;mnesia:create_table&lt;/strong&gt; methods takes the table name as an atom using the following code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-record(schedule_msg, {schedule_hash, from, to, packet, pid}).
+
+mnesia:create_table(list_to_atom(lists:concat([&quot;schedule_msg_&quot;, From#jid.user])),
+        [{disc_only_copies, [node()]}, {type, set},
+         {attributes, record_info(fields, schedule_msg)}]),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the &lt;a href=&quot;http://learnyousomeerlang.com/starting-out-for-real#atoms&quot; rel=&quot;nofollow&quot;&gt;http://learnyousomeerlang.com/starting-out-for-real#atoms&lt;/a&gt; it is recommended not to create atoms dynamically as it is not garbage collected and the atom lookup table is of finite size.&lt;/p&gt;
+
+&lt;p&gt;So how to create mnesia tables without using atom&#39;s ? &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;or&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;There should not be as many tables as the number of users in the first place. Is it a bad design from the view of performance?&lt;/p&gt;
+
+        </summary>
+    </entry>
+</feed>

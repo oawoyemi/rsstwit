@@ -1,6 +1,5 @@
 -module(feed_parser).
 
-%% API
 -export([parse/1, parseCount/1]).
 
 count(Event, Acc) ->
@@ -15,8 +14,12 @@ parseCount(XmlFile) ->
     parse(XmlFile, 0, fun count/2).
 
 
-parse(XmlFile) ->
-    parse(XmlFile, {start, []}, fun parseElement/2).
+parse(Xml) ->
+    {ok, Result, _TrailingChars} = erlsom:parse_sax(Xml, {start, []}, fun parseElement/2),
+    {ok, Result}.
+
+parse(Xml, Acc, F) ->
+    erlsom:parse_sax(Xml, Acc, F).
 
 parseElement(Event, {PreviousElement, State}) ->
     case {Event, PreviousElement} of
@@ -25,12 +28,9 @@ parseElement(Event, {PreviousElement, State}) ->
         {{characters, Title}, titleStart} ->
             {titleCharacters, [Title | State]};
         {endDocument, _} ->
-%%            io:format("~p~n", {Event, State}),
             State;
         _ -> {PreviousElement, State}
     end.
 
-parse(XmlFile, Acc, F) ->
-    {ok, Xml} = file:read_file(XmlFile),
-    erlsom:parse_sax(Xml, Acc, F).
+
 
