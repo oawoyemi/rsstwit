@@ -1,4 +1,5 @@
--module(feed_parser).
+
+0;95;c-module(feed_parser).
 
 -export([parse/1, parseCount/1]).
 
@@ -23,8 +24,10 @@ parse(Xml, Acc, F) ->
 
 parseElement(Event, {PreviousElement, State}) ->
     case {Event, PreviousElement} of
-        {{startElement, _, "title", _, _}, _} ->
+        {{startElement, _, "title", _, _}, _PreviousElement} ->
             {titleStart, State};
+        {{startElement, _, "summary", _, _}, _PreviousElement} ->
+	    {summaryStart, State};
         {{characters, Title}, titleStart} ->
             {titleCharacters, [Title | State]};
         {endDocument, _} ->
