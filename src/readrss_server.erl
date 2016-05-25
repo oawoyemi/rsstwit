@@ -33,8 +33,3 @@ terminate(_Reason, _State) ->
 
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
-
-%%     P = fun(Event, Acc) -> case Event of {startElement, _, "title", _, _} -> ParseTitle; _ -> Acc end end,
-%%     erlsom:parse_sax(Xml, 0, fun(Event, Acc) -> case Event of {startElement, _, "entry", _, _} -> Acc + 1; _ -> Acc end.
-
-%% printTitle(Event) -> case Event of {characters, Title} -> io:format("~p~n", [Title]); _ -> "" end end.

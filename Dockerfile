@@ -1,3 +1,3 @@
-FROM erlang:18.1.3
+FROM erlang:latest
 RUN mkdir /rsstwit
 VOLUME .:/rsstwit
